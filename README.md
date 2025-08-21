@@ -152,29 +152,6 @@ The application supports three test scenarios using specific last names:
 - **Error Masking**: Sensitive data masked in error logs
 - **CORS Policy**: Properly configured for security
 
-## 📁 Project Structure
-
-alloy-demo-root/
-├── backend/
-│ ├── index.js # Express server with API integration
-│ ├── package.json # Backend dependencies
-│ ├── .env # Environment variables (not committed)
-│ └── .gitignore # Backend-specific git rules
-├── frontend/
-│ ├── public/ # Static assets
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── ApplicationForm.jsx # Main form component
-│ │ │ └── OutcomeCard.jsx # Results display
-│ │ ├── App.js # Main application logic
-│ │ ├── App.css # Application styling
-│ │ └── index.js # React entry point
-│ └── package.json # Frontend dependencies
-├── .gitignore # Root git ignore rules
-├── package.json # Root dependencies
-└── README.md # This file
-
-
 ## 🚨 Troubleshooting
 
 ### Common Issues
