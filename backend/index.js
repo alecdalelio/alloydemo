@@ -93,33 +93,7 @@ function toAlloyPayload(applicant = {}) {
   };
 }
 
-// Demo mode for testing (when credentials fail)
-function getDemoResponse(lastName) {
-  const baseResponse = {
-    evaluation_token: "demo-eval-token",
-    entity_token: "demo-entity-token",
-    application_token: "demo-app-token",
-    timestamp: Date.now()
-  };
 
-  switch (lastName?.toLowerCase()) {
-    case 'review':
-      return {
-        ...baseResponse,
-        summary: { outcome: "Manual Review" }
-      };
-    case 'deny':
-      return {
-        ...baseResponse,
-        summary: { outcome: "Deny" }
-      };
-    default:
-      return {
-        ...baseResponse,
-        summary: { outcome: "Approved" }
-      };
-  }
-}
 
 // Normalize Alloy API outcomes to match frontend expectations
 function normalizeOutcome(alloyOutcome) {
@@ -181,24 +155,6 @@ app.post("/apply", async (req, res) => {
     
     console.log(`❌ Alloy API Error: ${status} - ${msg}`);
     
-    // If credentials are invalid (401), fall back to demo mode for working demonstration
-    if (status === 401) {
-      console.log(`🎭 Falling back to demo mode for demonstration purposes`);
-      const demoData = getDemoResponse(applicant.lastName);
-      
-      // Log demo response
-      console.log(`🎭 Demo mode: ${demoData.summary.outcome}`);
-      
-      console.log(`✅ Demo application processed: ${demoData.summary.outcome}`);
-      
-      res.json({
-        outcome: demoData.summary.outcome,
-        full: demoData,
-      });
-      return;
-    }
-
-    // For other errors, return the actual error
     // Log minimal info (masked for security)
     const safe = {
       status,
