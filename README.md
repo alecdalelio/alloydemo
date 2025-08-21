@@ -62,7 +62,7 @@ This application simulates a bank account opening process, integrating with Allo
    ```bash
    # Terminal 1: Start the backend (from backend directory)
    cd backend
-   PORT=5001 npm run dev
+   npm run dev
    
    # Terminal 2: Start the frontend (from frontend directory)
    cd frontend
@@ -157,9 +157,10 @@ The application supports three test scenarios using specific last names:
 ### Common Issues
 
 **Port Conflicts**
-- Backend runs on port 5001 (not 5000 due to macOS AirPlay)
+- Backend runs on port 5000 by default, automatically falls back to 5001 if busy
 - Frontend runs on port 3000
-- Use `lsof -i :5001` to check if port is available
+- Frontend automatically tries both ports to connect to backend
+- Use `lsof -i :5000` or `lsof -i :5001` to check port availability
 
 **CORS Errors**
 - Ensure backend is running before frontend
@@ -174,10 +175,13 @@ The application supports three test scenarios using specific last names:
 ### Development Commands
 
 ```bash
-# Check backend health
-curl http://localhost:5001/
+# Check backend health (try both ports)
+curl http://localhost:5000/ || curl http://localhost:5001/
 
-# Test API endpoint
+# Test API endpoint (try both ports)
+curl -X POST http://localhost:5000/apply \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Test","lastName":"User",...}' || \
 curl -X POST http://localhost:5001/apply \
   -H "Content-Type: application/json" \
   -d '{"firstName":"Test","lastName":"User",...}'

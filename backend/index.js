@@ -5,8 +5,26 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+
+// Auto-detect available port (5000 preferred, fallback to 5001)
+function getAvailablePort() {
+  const net = require('net');
+  
+  return new Promise((resolve) => {
+    const server = net.createServer();
+    server.listen(5000, () => {
+      const { port } = server.address();
+      server.close(() => resolve(port));
+    });
+    server.on('error', () => {
+      console.log('⚠️  Port 5000 is busy, using port 5001');
+      resolve(5001);
+    });
+  });
+}
+
+let PORT;
 
 // Debug environment variables
 console.log('🔍 Environment check:');
@@ -201,8 +219,19 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // ---------- Start ----------
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`CORS origin allowed: ${FRONTEND_ORIGIN}`);
-  console.log(`🚀 Backend ready to receive requests`);
-});
+async function startServer() {
+  try {
+    PORT = process.env.PORT || await getAvailablePort();
+    
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`CORS origin allowed: ${FRONTEND_ORIGIN}`);
+      console.log(`🚀 Backend ready to receive requests`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();

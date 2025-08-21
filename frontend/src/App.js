@@ -32,13 +32,26 @@ function App() {
     };
 
     try {
-              const response = await fetch('http://localhost:5001/apply', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload)
-      });
+      // Try port 5000 first, fallback to 5001
+      let response;
+      try {
+        response = await fetch('http://localhost:5000/apply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (portError) {
+        // If port 5000 fails, try port 5001
+        response = await fetch('http://localhost:5001/apply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      }
 
       const data = await response.json();
 
