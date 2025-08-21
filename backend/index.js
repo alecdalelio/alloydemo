@@ -47,6 +47,8 @@ app.use(express.json({ limit: "1mb" }));
 // ---------- Explicit preflight for /apply ----------
 app.options("/apply", cors(corsOptions));
 
+
+
 // ---------- Health check ----------
 app.get("/", (_req, res) => {
   res.send("Backend running 🚀");
@@ -72,6 +74,9 @@ function toAlloyPayload(applicant = {}) {
   // Prefer birth_date if provided; accept dob for compatibility
   const birth_date = applicant.birth_date ?? applicant.dob ?? "";
 
+  // Format SSN to 9 digits (remove dashes and spaces)
+  const formattedSsn = applicant.ssn ? applicant.ssn.replace(/[-\s]/g, '') : "";
+
   return {
     name_first: applicant.firstName,
     name_last: applicant.lastName,
@@ -81,7 +86,7 @@ function toAlloyPayload(applicant = {}) {
     address_state,
     address_postal_code,
     address_country_code,
-    document_ssn: applicant.ssn, // Changed from ssn to document_ssn per Alloy API spec
+    document_ssn: formattedSsn, // Format SSN to 9 digits for Alloy API
     email_address: applicant.email,
     phone_number: applicant.phone || applicant.phoneNumber || "", // Required field per Alloy API
     birth_date,
@@ -147,9 +152,7 @@ app.post("/apply", async (req, res) => {
   };
 
   // Always attempt real API call first to demonstrate integration
-  console.log(`🔄 Making API call to Alloy for ${applicant.firstName} ${applicant.lastName}`);
-  console.log(`📍 Endpoint: ${url}`);
-  console.log(`🔐 Using credentials: ${auth.username ? 'PROVIDED' : 'MISSING'}`);
+  console.log(`🔄 Processing application for ${applicant.firstName} ${applicant.lastName}`);
 
   try {
     const { data } = await axios.post(url, payload, {
@@ -158,10 +161,15 @@ app.post("/apply", async (req, res) => {
       headers: { "Content-Type": "application/json" },
     });
 
+    // Log key response details
+    console.log(`✅ Alloy API Response: ${data?.summary?.outcome || 'Unknown'}`);
+    console.log(`📊 Score: ${data?.summary?.score || 'N/A'}, Tags: ${data?.summary?.tags?.join(', ') || 'None'}`);
+
     const rawOutcome = data?.summary?.outcome;
     const normalizedOutcome = normalizeOutcome(rawOutcome);
     
-    console.log(`✅ Alloy API Success: ${rawOutcome} → ${normalizedOutcome}`);
+    console.log(`✅ Application processed: ${rawOutcome} → ${normalizedOutcome}`);
+    
     res.json({
       outcome: normalizedOutcome,
       full: data,
@@ -178,7 +186,11 @@ app.post("/apply", async (req, res) => {
       console.log(`🎭 Falling back to demo mode for demonstration purposes`);
       const demoData = getDemoResponse(applicant.lastName);
       
-      console.log(`✨ Demo response: ${demoData.summary.outcome}`);
+      // Log demo response
+      console.log(`🎭 Demo mode: ${demoData.summary.outcome}`);
+      
+      console.log(`✅ Demo application processed: ${demoData.summary.outcome}`);
+      
       res.json({
         outcome: demoData.summary.outcome,
         full: demoData,

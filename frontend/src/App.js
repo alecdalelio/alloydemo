@@ -32,10 +32,10 @@ function App() {
     };
 
     try {
-      // Try port 5000 first, fallback to 5001
+      // Try port 5001 first (since 5000 is used by macOS), fallback to 5000
       let response;
       try {
-        response = await fetch('http://localhost:5000/apply', {
+        response = await fetch('http://localhost:5001/apply', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -43,8 +43,8 @@ function App() {
           body: JSON.stringify(payload)
         });
       } catch (portError) {
-        // If port 5000 fails, try port 5001
-        response = await fetch('http://localhost:5001/apply', {
+        // If port 5001 fails, try port 5000
+        response = await fetch('http://localhost:5000/apply', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,12 +56,15 @@ function App() {
       const data = await response.json();
 
       if (response.ok) {
+        console.log(`✅ Application processed: ${data.outcome}`);
         setOutcome(data.outcome);
         setCurrentView('outcome');
       } else {
+        console.error('❌ Application failed:', data.error);
         setError(data.error || 'An error occurred while processing your application');
       }
     } catch (err) {
+      console.error('❌ Connection failed:', err.message);
       setError('Failed to connect to server. Please try again.');
     } finally {
       setIsSubmitting(false);
