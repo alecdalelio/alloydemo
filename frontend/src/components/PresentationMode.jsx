@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './PresentationMode.css';
+import ApplicationForm from './ApplicationForm';
 
 const PresentationMode = ({ onExit }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [demoOutcome, setDemoOutcome] = useState(null);
+  const [demoError, setDemoError] = useState(null);
 
   // Presentation slides data
   const slides = [
@@ -172,6 +176,68 @@ app.post('/apply', async (req, res) => {
     setShowControls(true);
   };
 
+  const handleFormSubmit = async (formData) => {
+    setIsSubmitting(true);
+    setDemoError(null);
+    setDemoOutcome(null);
+
+    // Transform flat form data to nested address structure
+    const payload = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      address: {
+        line1: formData.address1,
+        line2: formData.address2,
+        city: formData.city,
+        state: formData.state,
+        zip: formData.zip,
+        country: formData.country
+      },
+      ssn: formData.ssn,
+      email: formData.email,
+      phone: formData.phone,
+      birth_date: formData.birth_date
+    };
+
+    try {
+      // Try port 5001 first (since 5000 is used by macOS), fallback to 5000
+      let response;
+      try {
+        response = await fetch('http://localhost:5001/apply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (portError) {
+        // If port 5001 fails, try port 5000
+        response = await fetch('http://localhost:5000/apply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(`✅ Application processed: ${data.outcome}`);
+        setDemoOutcome(data.outcome);
+      } else {
+        console.error('❌ Application failed:', data.error);
+        setDemoError(data.error || 'An error occurred while processing your application');
+      }
+    } catch (err) {
+      console.error('❌ Connection failed:', err.message);
+      setDemoError('Failed to connect to server. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const renderSlideContent = (slide) => {
     switch (slide.type) {
       case 'title':
@@ -217,15 +283,83 @@ app.post('/apply', async (req, res) => {
           </div>
         );
       
-      case 'demo':
+      case 'code':
         return (
-          <div className="slide-demo">
+          <div className="slide-code">
+            <h2>{slide.title}</h2>
+            <p className="code-description">{slide.content}</p>
+            <div className="code-container">
+              <pre className="code-snippet">
+                <code>{slide.codeSnippet}</code>
+              </pre>
+            </div>
+          </div>
+        );
+      
+      case 'live-demo':
+        return (
+          <div className="slide-live-demo">
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p>{slide.content}</p>
-            <div className="demo-placeholder">
-              <div className="demo-icon">🎯</div>
-              <p>Interactive Demo Available</p>
+            <div className="demo-container">
+              <div className="demo-header">
+                <span className="demo-label">Live Application Form</span>
+                <div className="demo-controls">
+                  <button 
+                    className="demo-btn"
+                    onClick={() => {
+                      setDemoOutcome(null);
+                      setDemoError(null);
+                    }}
+                  >
+                    Reset Demo
+                  </button>
+                </div>
+              </div>
+              <div className="demo-content">
+                {demoError && (
+                  <div className="demo-error">
+                    <strong>Error:</strong> {demoError}
+                  </div>
+                )}
+                
+                {demoOutcome ? (
+                  <div className="demo-outcome">
+                    <h3>Application Result</h3>
+                    <div className={`outcome-display outcome-${demoOutcome.toLowerCase()}`}>
+                      <div className="outcome-icon">
+                        {demoOutcome === 'Approved' ? '✅' : 
+                         demoOutcome === 'Manual Review' ? '🔍' : '❌'}
+                      </div>
+                      <h4>
+                        {demoOutcome === 'Approved' ? 'Application Approved!' :
+                         demoOutcome === 'Manual Review' ? 'Under Review' :
+                         'Application Not Approved'}
+                      </h4>
+                      <p>
+                        {demoOutcome === 'Approved' ? 'Success! Customer has successfully created an account' :
+                         demoOutcome === 'Manual Review' ? 'Thanks for submitting your application, we\'ll be in touch shortly' :
+                         'Sorry, your application was not successful'}
+                      </p>
+                    </div>
+                    <button 
+                      className="demo-btn"
+                      onClick={() => {
+                        setDemoOutcome(null);
+                        setDemoError(null);
+                      }}
+                    >
+                      Try Another Application
+                    </button>
+                  </div>
+                ) : (
+                  <ApplicationForm 
+                    onSubmit={handleFormSubmit}
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+              </div>
             </div>
           </div>
         );

@@ -54,6 +54,7 @@
   padding: 80px 40px;
   text-align: center;
   animation: slideIn 0.5s ease-out;
+  overflow: hidden;
 }
 
 @keyframes slideIn {
@@ -185,30 +186,238 @@
   opacity: 0.9;
 }
 
-.slide-demo p {
-  font-size: 1.3rem;
-  margin-bottom: 40px;
-  opacity: 0.8;
+/* Code Slide Styles */
+.slide-code h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.demo-placeholder {
+.code-description {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.code-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 60vh;
+  overflow: hidden;
+}
+
+.code-snippet {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 25px;
+  border-radius: 10px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  overflow-y: auto;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 50vh;
+}
+
+.code-snippet code {
+  color: inherit;
+}
+
+/* Live Demo Slide Styles */
+.slide-live-demo h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slide-live-demo h3 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.slide-live-demo p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  opacity: 0.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.demo-container {
   background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.2);
-  animation: demoPlaceholderPulse 2s ease-in-out infinite;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  max-height: 70vh;
 }
 
-.demo-icon {
-  font-size: 4rem;
+.demo-header {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.demo-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.demo-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.demo-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.demo-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.demo-content {
+  padding: 30px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Form optimizations for demo */
+.demo-content .application-form {
+  max-width: 100%;
+}
+
+.demo-content .form-section {
+  margin-bottom: 25px;
+}
+
+.demo-content .form-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.demo-content .form-group {
+  margin-bottom: 15px;
+}
+
+.demo-content .form-group label {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.demo-content .form-group input {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.demo-content .form-row {
+  gap: 15px;
+}
+
+.demo-content .helper-text {
+  font-size: 0.75rem;
+}
+
+.demo-content .error-message {
+  font-size: 0.75rem;
+}
+
+.demo-content .form-actions {
+  margin-top: 25px;
+}
+
+.demo-content .btn {
+  padding: 12px 24px;
+  font-size: 0.9rem;
+}
+
+.demo-error {
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  color: #ffcdd2;
+  padding: 15px;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.demo-placeholder p {
-  font-size: 1.2rem;
-  margin: 0;
+.demo-outcome {
+  text-align: center;
+}
+
+.demo-outcome h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.outcome-display {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.outcome-display.outcome-approved {
+  border-color: rgba(76, 175, 80, 0.5);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.outcome-display.outcome-manual-review {
+  border-color: rgba(255, 152, 0, 0.5);
+  background: rgba(255, 152, 0, 0.1);
+}
+
+.outcome-display.outcome-deny {
+  border-color: rgba(244, 67, 54, 0.5);
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.outcome-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.outcome-display h4 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.outcome-display p {
+  font-size: 1.1rem;
   opacity: 0.9;
+  margin: 0;
 }
 
 /* Navigation Controls */
@@ -425,7 +634,43 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .slide-container {
+    padding: 60px 30px;
+  }
+  
+  .slide-title h1 {
+    font-size: 3rem;
+  }
+  
+  .slide-content h2,
+  .slide-list h2,
+  .slide-tech h2,
+  .slide-code h2,
+  .slide-live-demo h2 {
+    font-size: 2.8rem;
+  }
+  
+  .code-container {
+    max-width: 90%;
+    padding: 25px;
+  }
+  
+  .code-snippet {
+    font-size: 0.85rem;
+    padding: 20px;
+  }
+  
+  .demo-container {
+    max-width: 95%;
+  }
+}
+
 @media (max-width: 768px) {
+  .slide-container {
+    padding: 50px 20px;
+  }
+  
   .slide-title h1 {
     font-size: 2.5rem;
   }
@@ -437,17 +682,20 @@
   .slide-content h2,
   .slide-list h2,
   .slide-tech h2,
-  .slide-demo h2 {
-    font-size: 2.5rem;
+  .slide-code h2,
+  .slide-live-demo h2 {
+    font-size: 2.2rem;
   }
   
   .slide-content p,
-  .slide-demo p {
-    font-size: 1.2rem;
+  .slide-code p,
+  .slide-live-demo p {
+    font-size: 1.1rem;
   }
   
   .slide-list li {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    padding: 12px 15px;
   }
   
   .tech-grid {
@@ -471,22 +719,121 @@
   .keyboard-help {
     display: none;
   }
+  
+  .code-container {
+    padding: 15px;
+    max-height: 50vh;
+  }
+  
+  .code-snippet {
+    font-size: 0.75rem;
+    padding: 15px;
+    max-height: 40vh;
+  }
+  
+  .demo-container {
+    max-width: 100%;
+    max-height: 60vh;
+  }
+  
+  .demo-content {
+    padding: 15px;
+    max-height: 50vh;
+  }
+  
+  .demo-content .form-section {
+    margin-bottom: 20px;
+  }
+  
+  .demo-content .form-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  
+  .demo-content .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .demo-content .form-group label {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .demo-content .form-group input {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .demo-content .form-row {
+    gap: 12px;
+  }
+  
+  .demo-content .helper-text {
+    font-size: 0.7rem;
+  }
+  
+  .demo-content .error-message {
+    font-size: 0.7rem;
+  }
+  
+  .demo-content .form-actions {
+    margin-top: 20px;
+  }
+  
+  .demo-content .btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+  
+  .demo-header {
+    padding: 12px 15px;
+  }
+  
+  .demo-label {
+    font-size: 1rem;
+  }
+  
+  .demo-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
   .slide-container {
-    padding: 60px 20px;
+    padding: 40px 15px;
   }
   
   .slide-title h1 {
     font-size: 2rem;
   }
   
+  .slide-title h2 {
+    font-size: 1.3rem;
+  }
+  
   .slide-content h2,
   .slide-list h2,
   .slide-tech h2,
-  .slide-demo h2 {
-    font-size: 2rem;
+  .slide-code h2,
+  .slide-live-demo h2 {
+    font-size: 1.8rem;
+  }
+  
+  .slide-content p,
+  .slide-code p,
+  .slide-live-demo p {
+    font-size: 1rem;
+  }
+  
+  .slide-list li {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+  
+  .tech-item {
+    padding: 20px;
+    font-size: 1rem;
   }
   
   .top-controls {
@@ -501,5 +848,185 @@
   .control-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
+  }
+  
+  .nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .code-container {
+    padding: 10px;
+    max-height: 45vh;
+  }
+  
+  .code-snippet {
+    font-size: 0.7rem;
+    padding: 12px;
+    max-height: 35vh;
+  }
+  
+  .demo-container {
+    max-height: 55vh;
+  }
+  
+  .demo-content {
+    padding: 10px;
+    max-height: 45vh;
+  }
+  
+  .demo-header {
+    padding: 10px 12px;
+  }
+  
+  .demo-label {
+    font-size: 0.9rem;
+  }
+  
+  .demo-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+  
+  .outcome-display {
+    padding: 25px;
+  }
+  
+  .outcome-icon {
+    font-size: 2.5rem;
+  }
+  
+  .outcome-display h4 {
+    font-size: 1.5rem;
+  }
+  
+  .outcome-display p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .slide-container {
+    padding: 30px 10px;
+  }
+  
+  /* Handle landscape orientation on small screens */
+  @media (orientation: landscape) {
+    .slide-container {
+      padding: 20px 10px;
+    }
+    
+    .code-container {
+      max-height: 35vh;
+    }
+    
+    .code-snippet {
+      max-height: 25vh;
+    }
+    
+    .demo-container {
+      max-height: 45vh;
+    }
+    
+    .demo-content {
+      max-height: 35vh;
+    }
+  }
+  
+  .slide-title h1 {
+    font-size: 1.8rem;
+  }
+  
+  .slide-content h2,
+  .slide-list h2,
+  .slide-tech h2,
+  .slide-code h2,
+  .slide-live-demo h2 {
+    font-size: 1.6rem;
+  }
+  
+  .code-container {
+    max-height: 40vh;
+  }
+  
+  .code-snippet {
+    font-size: 0.65rem;
+    max-height: 30vh;
+  }
+  
+  .demo-container {
+    max-height: 50vh;
+  }
+  
+  .demo-content {
+    max-height: 40vh;
+  }
+  
+  .demo-content .form-section {
+    margin-bottom: 15px;
+  }
+  
+  .demo-content .form-section h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .demo-content .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .demo-content .form-group label {
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+  }
+  
+  .demo-content .form-group input {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .demo-content .form-row {
+    gap: 8px;
+  }
+  
+  .demo-content .helper-text {
+    font-size: 0.65rem;
+  }
+  
+  .demo-content .error-message {
+    font-size: 0.65rem;
+  }
+  
+  .demo-content .form-actions {
+    margin-top: 15px;
+  }
+  
+  .demo-content .btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+  
+  /* Handle landscape orientation on medium screens */
+  @media (orientation: landscape) {
+    .slide-container {
+      padding: 30px 15px;
+    }
+    
+    .code-container {
+      max-height: 40vh;
+    }
+    
+    .code-snippet {
+      max-height: 30vh;
+    }
+    
+    .demo-container {
+      max-height: 50vh;
+    }
+    
+    .demo-content {
+      max-height: 40vh;
+    }
   }
 }
