@@ -96,7 +96,7 @@
 
 /* Slide Content Types */
 .slide-title h1 {
-  font-size: 3.6rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 25px;
   color: #2c3e50;
@@ -104,7 +104,7 @@
 }
 
 .slide-title h2 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 30px;
   color: #7f8c8d;
@@ -112,7 +112,7 @@
 }
 
 .slide-title p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   max-width: 700px;
   margin: 0 auto;
   margin-bottom: 80px;
@@ -122,21 +122,21 @@
 }
 
 .slide-content h2 {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 30px;
   color: #2c3e50;
 }
 
 .slide-content h3 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 25px;
   color: #7f8c8d;
 }
 
 .slide-content p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
   margin-bottom: 80px;
@@ -145,14 +145,14 @@
 }
 
 .slide-list h2 {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 30px;
   color: #2c3e50;
 }
 
 .slide-list h3 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 25px;
   color: #7f8c8d;
@@ -167,9 +167,9 @@
 }
 
 .slide-list li {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 18px;
-  padding: 16px 22px;
+  padding: 14px 20px;
   background: white;
   border-radius: 12px;
   border: 1px solid #ecf0f1;
@@ -188,7 +188,7 @@
 .slide-list li:nth-child(6) { animation-delay: 0.6s; }
 
 .slide-tech h2 {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 40px;
   color: #2c3e50;
@@ -205,10 +205,10 @@
 
 .tech-item {
   background: white;
-  padding: 25px;
+  padding: 22px;
   border-radius: 15px;
   border: 1px solid #ecf0f1;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #2c3e50;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -230,7 +230,7 @@
 }
 
 .slide-demo h3 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 30px;
   color: #7f8c8d;
@@ -238,21 +238,21 @@
 
 /* Code Slide Styles */
 .slide-code h2 {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 25px;
   color: #2c3e50;
 }
 
 .slide-code h3 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 20px;
   color: #7f8c8d;
 }
 
 .code-description {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 30px;
   opacity: 0.9;
   max-width: 700px;
@@ -277,7 +277,7 @@
 .code-snippet {
   background: #1e1e1e;
   color: #d4d4d4;
-  padding: 25px;
+  padding: 22px;
   border-radius: 12px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.9rem;
@@ -295,21 +295,21 @@
 
 /* Live Demo Slide Styles */
 .slide-live-demo h2 {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 25px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .slide-live-demo h3 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 30px;
   opacity: 0.9;
 }
 
 .slide-live-demo p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 35px;
   opacity: 0.8;
   max-width: 800px;
@@ -341,7 +341,7 @@
 }
 
 .demo-label {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #2c3e50;
 }
@@ -371,7 +371,7 @@
 }
 
 .demo-content {
-  padding: 25px;
+  padding: 22px;
   max-height: 50vh;
   overflow-y: auto;
 }
@@ -381,7 +381,7 @@
   max-width: 100%;
   background: white;
   border-radius: 12px;
-  padding: 25px;
+  padding: 22px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -391,7 +391,7 @@
 }
 
 .demo-content .form-section h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: 15px;
   color: #2c3e50;
   border-bottom: 1px solid #ecf0f1;
@@ -491,7 +491,7 @@
 
 .demo-outcome {
   text-align: center;
-  padding: 25px;
+  padding: 22px;
 }
 
 .demo-outcome h3 {
@@ -532,13 +532,13 @@
 }
 
 .outcome-display h4 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin-bottom: 15px;
   color: white;
 }
 
 .outcome-display p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   opacity: 0.9;
   margin: 0;
 }
@@ -788,7 +788,7 @@
   
   .code-snippet {
     font-size: 0.9rem;
-    padding: 25px;
+    padding: 22px;
   }
   
   .demo-container {
@@ -806,7 +806,7 @@
   }
   
   .slide-title h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   
   .slide-content h2,
@@ -820,11 +820,11 @@
   .slide-content p,
   .slide-code p,
   .slide-live-demo p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   .slide-list li {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 20px 25px;
     margin-bottom: 25px;
   }
@@ -868,7 +868,7 @@
   }
   
   .demo-content {
-    padding: 25px;
+    padding: 22px;
     max-height: 60vh;
   }
   
@@ -881,7 +881,7 @@
   }
   
   .demo-content .form-section h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 15px;
   }
   
@@ -920,7 +920,7 @@
   }
   
   .demo-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .demo-btn {
@@ -939,7 +939,7 @@
   }
   
   .slide-title h2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   
   .slide-content h2,
@@ -953,18 +953,18 @@
   .slide-content p,
   .slide-code p,
   .slide-live-demo p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .slide-list li {
-    font-size: 1.1rem;
+    font-size: 1rem;
     padding: 18px 22px;
     margin-bottom: 20px;
   }
   
   .tech-item {
-    padding: 25px;
-    font-size: 1.1rem;
+    padding: 22px;
+    font-size: 1rem;
   }
   
   .top-controls {
@@ -984,7 +984,7 @@
   .nav-btn {
     width: 45px;
     height: 45px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   .code-container {
@@ -1029,11 +1029,11 @@
   }
   
   .outcome-display h4 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   
   .outcome-display p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
@@ -1045,7 +1045,7 @@
   /* Handle landscape orientation on small screens */
   @media (orientation: landscape) {
     .slide-container {
-      padding: 25px 15px;
+      padding: 22px 15px;
     }
     
     .code-container {
@@ -1074,7 +1074,7 @@
   .slide-tech h2,
   .slide-code h2,
   .slide-live-demo h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
   
   .code-container {
@@ -1099,7 +1099,7 @@
   }
   
   .demo-content .form-section h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 12px;
   }
   
