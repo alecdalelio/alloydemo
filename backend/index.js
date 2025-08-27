@@ -5,7 +5,7 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://alloydemo.vercel.app";
 
 // Auto-detect available port (5000 preferred, fallback to 5001)
 function getAvailablePort() {
@@ -34,7 +34,7 @@ console.log('Token preview:', process.env.ALLOY_WORKFLOW_TOKEN?.substring(0, 8) 
 
 // ---------- CORS Configuration ----------
 const corsOptions = {
-  origin: FRONTEND_ORIGIN,
+  origin: [FRONTEND_ORIGIN, "https://alloydemo.vercel.app", "http://localhost:3000"],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 204

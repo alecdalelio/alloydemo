@@ -36,7 +36,7 @@ function App() {
       // Try port 5001 first (since 5000 is used by macOS), fallback to 5000
       let response;
       try {
-        response = await fetch('http://localhost:5001/apply', {
+        response = await fetch('https://alloydemo.onrender.com/apply', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function App() {
         });
       } catch (portError) {
         // If port 5001 fails, try port 5000
-        response = await fetch('http://localhost:5000/apply', {
+        response = await fetch('https://alloydemo.onrender.com/apply', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
