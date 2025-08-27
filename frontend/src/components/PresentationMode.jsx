@@ -1,3 +1,26 @@
+/**
+ * PresentationMode Component
+ * 
+ * A comprehensive technical presentation component that demonstrates the completion
+ * of the Alloy Senior TAM assignment. This component showcases technical implementation,
+ * problem-solving skills, and engineering excellence through an interactive slide deck.
+ * 
+ * The presentation covers:
+ * - Technical requirements analysis and approach
+ * - Architecture decisions and design rationale
+ * - Implementation challenges and solutions
+ * - Code quality and best practices
+ * - Production readiness and testing strategy
+ * - Live technical demonstration
+ * 
+ * @author Alec Dalelio
+ * @version 2.0.0
+ * @since 2024-01-01
+ * 
+ * @component
+ * @param {Function} onExit - Callback function to exit presentation mode
+ */
+
 import React, { useState, useEffect } from 'react';
 import './PresentationMode.css';
 import ApplicationForm from './ApplicationForm';
@@ -10,112 +33,188 @@ const PresentationMode = ({ onExit }) => {
   const [demoOutcome, setDemoOutcome] = useState(null);
   const [demoError, setDemoError] = useState(null);
 
-  // Presentation slides data
+  /**
+   * Technical presentation slides data
+   * Each slide demonstrates different aspects of the technical implementation
+   */
   const slides = [
     {
       id: 0,
       title: "Alloy Integration Demo",
-      subtitle: "Reference Implementation",
-      content: "A complete example of integrating Alloy's identity verification API to minimize fraudulent applications and reduce manual compliance reviews.",
+      subtitle: "Technical Implementation Review",
+      content: "A demonstration of the Alloy API integration assignment, showing how I approached the technical challenges and built a production-ready solution.",
       type: "title",
       background: "gradient-1"
     },
     {
       id: 1,
-      title: "Integration Overview",
-      content: "This demo showcases how to integrate Alloy's API into your application to prevent fraudulent applications from getting approved and reduce manual reviews from the compliance team.",
-      type: "content",
+      title: "Understanding the Requirements",
+      subtitle: "How I approached the assignment",
+      content: [
+        "🔍 Studied Alloy's evaluation API and sandbox environment",
+        "📋 Built a complete frontend form with validation",
+        "🎯 Created a backend API gateway to Alloy",
+        "⚡ Implemented real-time form validation and error display",
+        "🛡️ Added input sanitization and basic security measures",
+        "📊 Built outcome cards for approved/denied/review scenarios"
+      ],
+      type: "list",
       background: "gradient-2"
     },
     {
       id: 2,
-      title: "Key Requirements",
+      title: "Technical Architecture",
+      subtitle: "Design decisions and rationale",
       content: [
-        "📝 Application form with comprehensive validation",
-        "🔗 Alloy API integration for fraud detection",
-        "⚡ Real-time evaluation processing",
-        "📊 Outcome display (Approve/Deny/Manual Review)"
+        "⚛️ React.js: Component-based architecture for maintainability",
+        "🚀 Express.js: Lightweight, performant API gateway",
+        "🎯 State Management: Local state with React hooks for simplicity",
+        "🔌 API Design: RESTful patterns with comprehensive error handling",
+        "🛡️ Security: Rate limiting, CORS, input validation",
+        "📱 Responsive Design: Mobile-first approach with accessibility"
       ],
       type: "list",
       background: "gradient-3"
     },
     {
       id: 3,
+      title: "Key Technical Challenges",
+      subtitle: "Problems I solved along the way",
+      content: [
+        "🔐 Secure API credential management and authentication",
+        "⚡ Real-time form validation with user feedback",
+        "🔄 Data transformation between frontend and Alloy API formats",
+        "🚨 Comprehensive error handling for production scenarios",
+        "📊 Outcome normalization and consistent user experience",
+        "🧪 Testing strategy with Playwright for end-to-end coverage"
+      ],
+      type: "list",
+      background: "gradient-4"
+    },
+    {
+      id: 4,
       title: "Frontend Implementation",
-      content: "React.js form with real-time validation and modern UX",
+      content: "Built a React application with enterprise-grade form validation, accessibility features, and professional error handling. Focused on modern development practices and user experience.",
       type: "code",
-      background: "gradient-4",
-      codeSnippet: `// ApplicationForm.jsx - Key validation logic
+      background: "gradient-5",
+      codeSnippet: `// ApplicationForm.jsx - Form validation logic
 const validateField = (name, value) => {
   switch (name) {
     case 'ssn':
       if (!value.trim()) return 'SSN is required';
-      return !patterns.ssn.test(value) ? 
-        'SSN must be 9 digits (no dashes)' : '';
-    
-    case 'state':
-      if (!value.trim()) return 'State is required';
-      return !patterns.state.test(value) ? 
-        'State must be 2 letters (e.g. NY, CA)' : '';
+      const cleanSsn = value.replace(/[-\s]/g, '');
+      if (!patterns.ssn.test(cleanSsn)) 
+        return 'SSN must be 9 digits (no dashes)';
+      // Additional validation checks
+      if (cleanSsn === '000000000' || cleanSsn === '111111111') 
+        return 'SSN cannot be all zeros or ones';
+      return '';
     
     case 'birth_date':
       if (!value.trim()) return 'Date of birth is required';
       if (!patterns.birth_date.test(value)) 
         return 'Date must be YYYY-MM-DD format';
-      // Additional date validation...
+      const date = new Date(value);
+      const today = new Date();
+      if (date >= today) return 'Birth date must be in the past';
+      if (date.getFullYear() > today.getFullYear() - 13) 
+        return 'Applicant must be at least 13 years old';
       return '';
   }
 };`
     },
     {
-      id: 4,
-      title: "Backend Integration",
-      content: "Node.js/Express server with Alloy API integration",
+      id: 5,
+      title: "Backend Implementation",
+      content: "Created a Node.js/Express server with production-ready error handling, rate limiting, and comprehensive logging. Focused on secure API integration and monitoring capabilities.",
       type: "code",
-      background: "gradient-5",
-      codeSnippet: `// Backend API endpoint
+      background: "gradient-6",
+      codeSnippet: `// Backend API with error handling
 app.post('/apply', async (req, res) => {
-  try {
-    const payload = {
-      name_first: req.body.firstName,
-      name_last: req.body.lastName,
-      address_line_1: req.body.address.line1,
-      address_city: req.body.address.city,
-      address_state: req.body.address.state,
-      address_postal_code: req.body.address.zip,
-      address_country: req.body.address.country,
-      social_security_number: req.body.ssn,
-      email: req.body.email,
-      phone_number: req.body.phone,
-      birth_date: req.body.birth_date
-    };
+  // Validate request data
+  const validation = validateApplication(applicant);
+  if (!validation.isValid) {
+    return res.status(400).json({
+      error: "Invalid application data",
+      details: validation.errors,
+      code: "VALIDATION_ERROR"
+    });
+  }
 
-    const response = await fetch('https://sandbox.alloy.co/v1/evaluations/', {
-      method: 'POST',
-      headers: {
-        'Authorization': \`Basic \${Buffer.from(\`\${token}:\${secret}\`).toString('base64')}\`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
+  try {
+    const { data } = await axios.post(url, payload, {
+      auth,
+      timeout: 15000, // 15s network timeout
+      headers: { "Content-Type": "application/json" },
     });
 
-    const data = await response.json();
-    res.json({ outcome: data.summary.outcome });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const normalizedOutcome = normalizeOutcome(data?.summary?.outcome);
+    res.json({ outcome: normalizedOutcome, full: data });
+  } catch (err) {
+    const errorResponse = handleAlloyError(err);
+    res.status(errorResponse.status).json({
+      error: errorResponse.error,
+      message: errorResponse.message,
+      code: errorResponse.code
+    });
   }
 });`
     },
     {
-      id: 5,
-      title: "Interactive Demo",
-      content: "Experience the complete application flow with real-time Alloy API integration and outcome handling.",
+      id: 6,
+      title: "Code Quality & Best Practices",
+      subtitle: "Engineering standards and maintainability",
+      content: [
+        "📝 Comprehensive JSDoc documentation for all major functions",
+        "🧪 End-to-end testing with Playwright for complete coverage",
+        "🔒 Security-first development with input validation",
+        "⚡ Performance optimization and error handling",
+        "📱 Accessibility features and responsive design",
+        "🔄 Modular architecture with separation of concerns"
+      ],
+      type: "list",
+      background: "gradient-7"
+    },
+    {
+      id: 7,
+      title: "Production Readiness",
+      subtitle: "Enterprise deployment considerations",
+      content: [
+        "🔐 Security: Authentication, data encryption, API key management, audit logging",
+        "📊 Monitoring: Error tracking, performance monitoring, alert systems, health checks",
+        "📋 Compliance: SOC 2, PCI DSS, data retention policies, audit trails",
+        "⚡ Scalability: Load balancing, rate limiting, caching strategies, database optimization"
+      ],
+      type: "list",
+      background: "gradient-8"
+    },
+    {
+      id: 8,
+      title: "Testing Strategy",
+      subtitle: "Quality assurance approach",
+      content: [
+        "🧪 Playwright E2E Testing: Complete user journey validation",
+        "🔍 Unit Testing: Individual component and function testing",
+        "🔗 Integration Testing: API endpoint and data flow testing",
+        "📊 Test Coverage: Comprehensive coverage of critical user paths",
+        "🚀 Performance Testing: Load and stress testing scenarios",
+        "🔄 CI/CD Integration: Automated testing in deployment pipeline"
+      ],
+      type: "list",
+      background: "gradient-9"
+    },
+    {
+      id: 9,
+      title: "Live Demo",
+      content: "Interactive demonstration of the complete implementation, showing real-time API integration, error handling, and user experience.",
       type: "live-demo",
-      background: "gradient-6"
+      background: "gradient-10"
     }
   ];
 
-  // Navigation functions
+  /**
+   * Navigation functions for slide progression
+   */
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
@@ -132,7 +231,9 @@ app.post('/apply', async (req, res) => {
     setCurrentSlide(slideIndex);
   };
 
-  // Keyboard navigation
+  /**
+   * Enhanced keyboard navigation with additional shortcuts
+   */
   useEffect(() => {
     const handleKeyPress = (e) => {
       switch (e.key) {
@@ -153,6 +254,14 @@ app.post('/apply', async (req, res) => {
           e.preventDefault();
           setIsFullscreen(!isFullscreen);
           break;
+        case 'Home':
+          e.preventDefault();
+          goToSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          goToSlide(slides.length - 1);
+          break;
         default:
           break;
       }
@@ -162,7 +271,9 @@ app.post('/apply', async (req, res) => {
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [currentSlide, isFullscreen, onExit]);
 
-  // Auto-hide controls
+  /**
+   * Auto-hide controls for cleaner presentation experience
+   */
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowControls(false);
@@ -175,6 +286,10 @@ app.post('/apply', async (req, res) => {
     setShowControls(true);
   };
 
+  /**
+   * Enhanced form submission with comprehensive error handling
+   * Demonstrates production-ready error scenarios and user feedback
+   */
   const handleFormSubmit = async (formData) => {
     setIsSubmitting(true);
     setDemoError(null);
@@ -227,16 +342,46 @@ app.post('/apply', async (req, res) => {
         setDemoOutcome(data.outcome);
       } else {
         console.error('❌ Application failed:', data.error);
-        setDemoError(data.error || 'An error occurred while processing your application');
+        
+        // Enhanced error handling with user-friendly messages
+        let errorMessage = 'An error occurred while processing your application';
+        
+        if (data.code === 'AUTHENTICATION_ERROR') {
+          errorMessage = 'Authentication failed. Please check your API credentials.';
+        } else if (data.code === 'RATE_LIMIT_EXCEEDED') {
+          errorMessage = 'Too many requests. Please wait a moment and try again.';
+        } else if (data.code === 'VALIDATION_ERROR') {
+          errorMessage = 'Please check your information and try again.';
+        } else if (data.code === 'SERVICE_UNAVAILABLE') {
+          errorMessage = 'Service temporarily unavailable. Please try again later.';
+        } else if (data.message) {
+          errorMessage = data.message;
+        }
+        
+        setDemoError(errorMessage);
       }
     } catch (err) {
       console.error('❌ Connection failed:', err.message);
-      setDemoError('Failed to connect to server. Please try again.');
+      
+      // Enhanced network error handling
+      if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        setDemoError('Unable to connect to the server. Please check your connection and try again.');
+      } else if (err.name === 'AbortError') {
+        setDemoError('Request timed out. Please try again.');
+      } else {
+        setDemoError('Network error occurred. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  /**
+   * Renders slide content based on slide type
+   * 
+   * @param {Object} slide - Slide configuration object
+   * @returns {JSX.Element} Rendered slide content
+   */
   const renderSlideContent = (slide) => {
     switch (slide.type) {
       case 'title':
@@ -252,6 +397,7 @@ app.post('/apply', async (req, res) => {
         return (
           <div className="slide-content">
             <h2>{slide.title}</h2>
+            {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p>{slide.content}</p>
           </div>
         );
@@ -260,6 +406,7 @@ app.post('/apply', async (req, res) => {
         return (
           <div className="slide-list">
             <h2>{slide.title}</h2>
+            {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <ul>
               {slide.content.map((item, index) => (
                 <li key={index}>{item}</li>
@@ -286,6 +433,7 @@ app.post('/apply', async (req, res) => {
         return (
           <div className="slide-code">
             <h2>{slide.title}</h2>
+            {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p className="code-description">{slide.content}</p>
             <div className="code-container">
               <pre className="code-snippet">
@@ -303,7 +451,7 @@ app.post('/apply', async (req, res) => {
             <p>{slide.content}</p>
             <div className="demo-container">
               <div className="demo-header">
-                <span className="demo-label">Interactive Application Form</span>
+                <span className="demo-label">Interactive Technical Demo</span>
                 <div className="demo-controls">
                   <button 
                     className="demo-btn"
@@ -436,10 +584,11 @@ app.post('/apply', async (req, res) => {
         </>
       )}
 
-      {/* Keyboard Shortcuts Help */}
+      {/* Enhanced Keyboard Shortcuts Help */}
       <div className="keyboard-help">
         <span>← → Navigate</span>
         <span>Space Next</span>
+        <span>Home/End Jump</span>
         <span>ESC Exit</span>
         <span>F11 Fullscreen</span>
       </div>
