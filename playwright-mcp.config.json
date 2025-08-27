@@ -1,0 +1,93 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "headless": false,
+    "userDataDir": "./browser-data",
+    "args": [
+      "--disable-web-security",
+      "--disable-features=VizDisplayCompositor",
+      "--no-sandbox"
+    ]
+  },
+  "server": {
+    "port": 8080,
+    "host": "localhost"
+  },
+  "capabilities": [
+    "core",
+    "tabs",
+    "pdf",
+    "screenshot"
+  ],
+  "testConfigs": {
+    "presentation": {
+      "url": "http://localhost:3000",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "devices": [
+        {
+          "name": "Desktop",
+          "viewport": { "width": 1920, "height": 1080 }
+        },
+        {
+          "name": "Tablet",
+          "viewport": { "width": 768, "height": 1024 }
+        },
+        {
+          "name": "Mobile",
+          "viewport": { "width": 375, "height": 667 }
+        },
+        {
+          "name": "Small Mobile",
+          "viewport": { "width": 320, "height": 568 }
+        }
+      ]
+    },
+    "form": {
+      "url": "http://localhost:3000",
+      "testData": {
+        "approved": {
+          "firstName": "John",
+          "lastName": "Smith",
+          "email": "john.smith@example.com",
+          "phone": "1234567890",
+          "ssn": "123456789",
+          "birth_date": "1990-01-01",
+          "address1": "123 Main St",
+          "city": "New York",
+          "state": "NY",
+          "zip": "10001",
+          "country": "US"
+        },
+        "manualReview": {
+          "firstName": "Jessica",
+          "lastName": "Review",
+          "email": "jessica.review@example.com",
+          "phone": "1234567890",
+          "ssn": "123456789",
+          "birth_date": "1990-01-01",
+          "address1": "123 Main St",
+          "city": "New York",
+          "state": "NY",
+          "zip": "10001",
+          "country": "US"
+        },
+        "denied": {
+          "firstName": "John",
+          "lastName": "Deny",
+          "email": "john.deny@example.com",
+          "phone": "1234567890",
+          "ssn": "123456789",
+          "birth_date": "1990-01-01",
+          "address1": "123 Main St",
+          "city": "New York",
+          "state": "NY",
+          "zip": "10001",
+          "country": "US"
+        }
+      }
+    }
+  }
+}

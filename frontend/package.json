@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@playwright/mcp": "^0.0.35",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
@@ -16,7 +17,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:playwright": "playwright test",
+    "test:playwright:ui": "playwright test --ui",
+    "test:playwright:headed": "playwright test --headed",
+    "test:playwright:debug": "playwright test --debug",
+    "test:presentation": "playwright test tests/presentation.spec.js",
+    "test:layout": "playwright test tests/layout.spec.js",
+    "test:responsive": "playwright test --project=Mobile\\ Chrome --project=Mobile\\ Safari",
+    "playwright:install": "playwright install",
+    "playwright:codegen": "playwright codegen http://localhost:3000"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
   }
 }
