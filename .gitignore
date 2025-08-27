@@ -104,3 +104,13 @@ out/
 # Temporary files
 tmp/
 temp/
+
+# Playwright test artifacts
+playwright-report/
+test-results/
+*.trace
+*.har
+
+# Package lock files (generated)
+package-lock.json
+*/package-lock.json
