@@ -33,9 +33,6 @@ This application simulates a bank account opening process, integrating with Allo
 
 2. **Install dependencies**
    ```bash
-   # Install root dependencies
-   npm install
-   
    # Install backend dependencies
    cd backend
    npm install
@@ -49,14 +46,16 @@ This application simulates a bank account opening process, integrating with Allo
    ```bash
    # In the backend directory, create a .env file
    cd ../backend
-   cp .env.example .env
    ```
    
-   Add your Alloy credentials to `backend/.env`:
+   Create `backend/.env` with your Alloy credentials:
    ```env
    ALLOY_WORKFLOW_TOKEN=your_workflow_token_here
    ALLOY_WORKFLOW_SECRET=your_workflow_secret_here
+   FRONTEND_ORIGIN=http://localhost:3000
    ```
+   
+   **Note**: Replace `your_workflow_token_here` and `your_workflow_secret_here` with your actual Alloy API credentials from your dashboard.
 
 4. **Run the application**
    ```bash
@@ -119,7 +118,7 @@ This application simulates a bank account opening process, integrating with Allo
 
 ## 🧪 Testing Scenarios
 
-The application supports three test scenarios using specific last names:
+The application supports three test scenarios using specific last names as part of Alloy's Sandbox Personas feature:
 
 | Last Name | Expected Outcome | UI Display |
 |-----------|------------------|------------|
@@ -157,14 +156,14 @@ The application supports three test scenarios using specific last names:
 ### Common Issues
 
 **Port Conflicts**
-- Backend runs on port 5000 by default, automatically falls back to 5001 if busy
+- Backend automatically detects available port (5000 preferred, falls back to 5001)
 - Frontend runs on port 3000
-- Frontend automatically tries both ports to connect to backend
+- Frontend automatically tries port 5001 first, then falls back to 5000
 - Use `lsof -i :5000` or `lsof -i :5001` to check port availability
 
 **CORS Errors**
 - Ensure backend is running before frontend
-- Check that FRONTEND_ORIGIN matches your frontend URL
+- Check that FRONTEND_ORIGIN in backend `.env` matches your frontend URL
 - Hard refresh browser cache (Cmd+Shift+R)
 
 **API Errors**
@@ -210,3 +209,4 @@ This application successfully demonstrates:
 ✅ **Error Management**: Graceful handling of edge cases  
 ✅ **Code Quality**: Clean, maintainable, and well-documented code  
 ✅ **Technical Depth**: Full-stack implementation with proper architecture  
+✅ **Sandbox Personas**: Proper implementation of test scenarios using specific last names
