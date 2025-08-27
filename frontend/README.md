@@ -1,70 +1,191 @@
-# Getting Started with Create React App
+# Alloy Demo Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React.js frontend application for the Alloy Technical Account Manager assignment, featuring an interactive application form and presentation mode.
 
-## Available Scripts
+## 🏗️ Architecture
 
-In the project directory, you can run:
+- **Framework**: React.js (Create React App)
+- **State Management**: React Hooks (useState)
+- **Validation**: Client-side form validation with regex patterns
+- **Styling**: Custom CSS with responsive design
+- **Components**: Modular architecture with ApplicationForm, OutcomeCard, and PresentationMode
 
-### `npm start`
+## 🚀 Quick Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
+- Node.js (v14 or higher)
+- Backend server running (see backend README)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
+```bash
+cd frontend
+npm install
+```
 
-### `npm test`
+### Running the Application
+```bash
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The application will open at `http://localhost:3000`
 
-### `npm run build`
+## 📋 Available Scripts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Development
+```bash
+npm start          # Start development server
+npm test           # Run React tests
+npm run build      # Build for production
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Playwright Testing
+```bash
+npm run test:playwright        # Run all Playwright tests
+npm run test:presentation      # Test presentation mode
+npm run test:layout           # Test layout and UX
+npm run test:responsive       # Test responsive design
+npm run test:playwright:ui    # Run tests with UI
+npm run test:playwright:headed # Run tests in headed mode
+npm run test:playwright:debug # Debug tests step by step
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Playwright Setup
+```bash
+npm run playwright:install    # Install Playwright browsers
+npm run playwright:codegen    # Generate test code interactively
+```
 
-### `npm run eject`
+## 🎯 Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Application Form
+- **Complete Validation**: All required fields with real-time validation
+- **User Experience**: Inline error messages and field highlighting
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Accessibility**: Proper labels, focus states, and keyboard navigation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Presentation Mode
+- **Interactive Slides**: Navigate through assignment overview
+- **Live Demo**: Real application form embedded in presentation
+- **Code Examples**: Syntax-highlighted code snippets
+- **Keyboard Navigation**: Arrow keys, space, ESC, F11
+- **Fullscreen Support**: Toggle fullscreen mode
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Outcome Display
+- **Three Scenarios**: Approved, Manual Review, Deny
+- **Visual Feedback**: Color-coded cards with icons
+- **Clear Messaging**: Assignment-specific outcome messages
+- **Reset Functionality**: Start new application
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🧪 Testing Scenarios
 
-## Learn More
+### Sandbox Personas Testing
+Use these last names to test different outcomes:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Last Name | Expected Outcome | UI Display |
+|-----------|------------------|------------|
+| `Review` | Manual Review | Orange card with review message |
+| `Deny` | Application Denied | Red card with denial message |
+| Any other | Approved | Green card with success message |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Sample Test Data
+```json
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "phone": "5551234567",
+  "address1": "123 Main St",
+  "city": "New York",
+  "state": "NY",
+  "zip": "10001",
+  "country": "US",
+  "ssn": "123456789",
+  "birth_date": "1990-01-01"
+}
+```
 
-### Code Splitting
+## 🔧 Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Environment Variables
+The frontend automatically connects to the backend on:
+- Port 5001 (preferred)
+- Port 5000 (fallback)
 
-### Analyzing the Bundle Size
+### Build Configuration
+- **Production Build**: `npm run build`
+- **Static Files**: Served from `build/` directory
+- **Optimization**: Minified and optimized for production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎨 Styling
 
-### Making a Progressive Web App
+### CSS Architecture
+- **Custom CSS**: No external UI libraries
+- **Responsive Design**: Mobile-first approach
+- **Modern Features**: CSS Grid, Flexbox, CSS Variables
+- **Animations**: Smooth transitions and hover effects
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Design System
+- **Color Palette**: Banking-themed colors
+- **Typography**: Clean, readable fonts
+- **Spacing**: Consistent padding and margins
+- **Components**: Reusable button and form styles
 
-### Advanced Configuration
+## 🧪 Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Playwright Test Coverage
+- **Presentation Mode**: Navigation, keyboard shortcuts, fullscreen
+- **Responsive Design**: Desktop, tablet, mobile views
+- **Form Validation**: Field validation and error handling
+- **API Integration**: Form submission and outcome display
+- **Layout Testing**: Element positioning and spacing
 
-### Deployment
+### Test Structure
+```
+tests/
+├── presentation.spec.js    # Presentation mode tests
+├── layout.spec.js         # Layout and UX tests
+└── responsive.spec.js     # Responsive design tests
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🚨 Troubleshooting
 
-### `npm run build` fails to minify
+### Common Issues
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Backend Connection**
+- Ensure backend is running before starting frontend
+- Check that backend is on port 5001 or 5000
+- Verify CORS configuration in backend
+
+**Build Issues**
+- Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
+- Clear build cache: `rm -rf build && npm run build`
+
+**Test Issues**
+- Install Playwright browsers: `npm run playwright:install`
+- Check that application is running before tests
+
+## 📱 Responsive Design
+
+### Breakpoints
+- **Desktop**: 1024px and above
+- **Tablet**: 768px - 1023px
+- **Mobile**: 375px - 767px
+- **Small Mobile**: 320px - 374px
+
+### Features
+- **Flexible Layout**: Adapts to screen size
+- **Touch-Friendly**: Large touch targets on mobile
+- **Readable Text**: Appropriate font sizes for each device
+- **Optimized Forms**: Mobile-friendly form inputs
+
+## 🔒 Security
+
+### Client-Side Security
+- **Input Validation**: Comprehensive form validation
+- **XSS Prevention**: React's built-in XSS protection
+- **No Sensitive Data**: Credentials handled by backend only
+
+### Best Practices
+- **Environment Variables**: No hardcoded secrets
+- **HTTPS Ready**: Configured for secure deployment
+- **Content Security**: Proper CSP headers in production

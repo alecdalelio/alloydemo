@@ -14,6 +14,7 @@ This application simulates a bank account opening process, integrating with Allo
 - **Responsive design** with modern banking UI
 - **Comprehensive error handling** and user feedback
 - **Clean, production-ready code** with proper separation of concerns
+- **Interactive presentation mode** for showcasing the assignment
 
 ## 🚀 Quick Start
 
@@ -40,12 +41,16 @@ This application simulates a bank account opening process, integrating with Allo
    # Install frontend dependencies
    cd ../frontend
    npm install
+   
+   # Install root dependencies
+   cd ..
+   npm install
    ```
 
 3. **Set up environment variables**
    ```bash
    # In the backend directory, create a .env file
-   cd ../backend
+   cd backend
    ```
    
    Create `backend/.env` with your Alloy credentials:
@@ -59,13 +64,12 @@ This application simulates a bank account opening process, integrating with Allo
 
 4. **Run the application**
    ```bash
-   # Terminal 1: Start the backend (from backend directory)
-   cd backend
+   # Start everything at once
    npm run dev
    
-   # Terminal 2: Start the frontend (from frontend directory)
-   cd frontend
-   npm start
+   # Or start them separately:
+   npm run start:backend    # Backend on port 5001
+   npm run start:frontend   # Frontend on port 3000
    ```
 
 5. **Open your browser**
@@ -85,13 +89,14 @@ This application simulates a bank account opening process, integrating with Allo
 - **State Management**: React Hooks (useState)
 - **Validation**: Client-side form validation with regex patterns
 - **Styling**: Custom CSS with responsive design
-- **Components**: Modular architecture with ApplicationForm and OutcomeCard
+- **Components**: Modular architecture with ApplicationForm, OutcomeCard, and PresentationMode
 
 ### Key Features
 - **CORS Configuration**: Properly configured for development
 - **Field Mapping**: Converts frontend data to Alloy's API format
 - **Outcome Normalization**: Maps Alloy responses to frontend expectations
 - **Error Handling**: Graceful degradation with demo mode fallback
+- **Testing**: Comprehensive Playwright test suite
 
 ## 📋 API Integration Details
 
@@ -143,13 +148,127 @@ The application supports three test scenarios using specific last names as part 
 }
 ```
 
-## 🔒 Security & Best Practices
+## 🔒 Security Implementation
 
-- **Environment Variables**: Sensitive credentials stored in `.env` files
-- **Git Ignore**: Comprehensive `.gitignore` prevents committing secrets
-- **Input Validation**: Both client-side and server-side validation
+### Environment Variables
+- **Secure Storage**: All sensitive credentials stored in `.env` files
+- **Git Protection**: Comprehensive `.gitignore` prevents committing secrets
+- **No Hardcoding**: No API credentials in source code
+
+### Input Validation
+- **Client-Side**: Real-time validation with immediate feedback
+- **Server-Side**: Backend validation before API calls
+- **Sanitization**: Input sanitization to prevent injection attacks
+
+### Error Handling & Logging
 - **Error Masking**: Sensitive data masked in error logs
-- **CORS Policy**: Properly configured for security
+- **Graceful Degradation**: Proper error responses without exposing internals
+- **Audit Trail**: Detailed logging for debugging (with sensitive data protected)
+
+### CORS & Network Security
+- **CORS Policy**: Properly configured for development and production
+- **Origin Validation**: Strict origin checking for API requests
+- **HTTPS Ready**: Configured for secure deployment
+
+### Data Protection
+- **SSN Handling**: SSNs masked in logs and never stored
+- **API Security**: Basic authentication with Alloy credentials
+- **No Data Persistence**: No sensitive data stored in application
+
+## 🚀 Deployment Options
+
+### Render.com Deployment
+
+#### Backend Deployment
+1. **Create a new Web Service**
+   - Connect your GitHub repository
+   - Set build command: `cd backend && npm install`
+   - Set start command: `cd backend && npm start`
+
+2. **Environment Variables**
+   ```
+   ALLOY_WORKFLOW_TOKEN=your_workflow_token
+   ALLOY_WORKFLOW_SECRET=your_workflow_secret
+   FRONTEND_ORIGIN=https://your-frontend-app.onrender.com
+   ```
+
+#### Frontend Deployment
+1. **Create a new Static Site**
+   - Connect your GitHub repository
+   - Set build command: `cd frontend && npm install && npm run build`
+   - Set publish directory: `frontend/build`
+
+2. **Environment Variables**
+   ```
+   REACT_APP_API_URL=https://your-backend-app.onrender.com
+   ```
+
+### Fly.io Deployment
+
+#### Prerequisites
+```bash
+# Install flyctl
+curl -L https://fly.io/install.sh | sh
+
+# Login to Fly.io
+fly auth login
+```
+
+#### Backend Deployment
+1. **Initialize Fly.io app**
+   ```bash
+   cd backend
+   fly launch
+   ```
+
+2. **Configure environment variables**
+   ```bash
+   fly secrets set ALLOY_WORKFLOW_TOKEN=your_workflow_token
+   fly secrets set ALLOY_WORKFLOW_SECRET=your_workflow_secret
+   fly secrets set FRONTEND_ORIGIN=https://your-frontend-app.fly.dev
+   ```
+
+3. **Deploy**
+   ```bash
+   fly deploy
+   ```
+
+#### Frontend Deployment
+1. **Build and deploy**
+   ```bash
+   cd frontend
+   npm run build
+   fly launch
+   fly deploy
+   ```
+
+### Vercel Deployment
+
+#### Frontend Deployment
+1. **Connect repository to Vercel**
+2. **Set build settings**:
+   - Framework Preset: Create React App
+   - Build Command: `npm run build`
+   - Output Directory: `build`
+
+3. **Environment Variables**:
+   ```
+   REACT_APP_API_URL=https://your-backend-url.com
+   ```
+
+#### Backend Deployment
+1. **Create Vercel project**
+2. **Set build settings**:
+   - Framework Preset: Node.js
+   - Build Command: `npm install`
+   - Output Directory: `backend`
+
+3. **Environment Variables**:
+   ```
+   ALLOY_WORKFLOW_TOKEN=your_workflow_token
+   ALLOY_WORKFLOW_SECRET=your_workflow_secret
+   FRONTEND_ORIGIN=https://your-frontend-app.vercel.app
+   ```
 
 ## 🚨 Troubleshooting
 
@@ -209,4 +328,7 @@ This application successfully demonstrates:
 ✅ **Error Management**: Graceful handling of edge cases  
 ✅ **Code Quality**: Clean, maintainable, and well-documented code  
 ✅ **Technical Depth**: Full-stack implementation with proper architecture  
-✅ **Sandbox Personas**: Proper implementation of test scenarios using specific last names
+✅ **Sandbox Personas**: Proper implementation of test scenarios using specific last names  
+✅ **Presentation Mode**: Interactive presentation for showcasing the assignment  
+✅ **Comprehensive Testing**: Playwright test suite for quality assurance  
+✅ **Deployment Ready**: Configured for multiple hosting platforms
