@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import ApplicationForm from './components/ApplicationForm';
 import OutcomeCard from './components/OutcomeCard';
+import PresentationMode from './components/PresentationMode';
 
 function App() {
-  const [currentView, setCurrentView] = useState('form'); // 'form' | 'outcome'
+  const [currentView, setCurrentView] = useState('form'); // 'form' | 'outcome' | 'presentation'
   const [outcome, setOutcome] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -77,41 +78,63 @@ function App() {
     setError(null);
   };
 
+  const handleEnterPresentation = () => {
+    setCurrentView('presentation');
+  };
+
+  const handleExitPresentation = () => {
+    setCurrentView('form');
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>🏦 Alloy Bank Application</h1>
-        <p>Complete your application to open your new account</p>
-      </header>
-      <main className="App-main">
-        <div className="container">
-          {error && (
-            <div className="error-banner">
-              <strong>Error:</strong> {error}
+      {currentView === 'presentation' ? (
+        <PresentationMode onExit={handleExitPresentation} />
+      ) : (
+        <>
+          <header className="App-header">
+            <h1>🏦 Alloy Bank Application</h1>
+            <p>Complete your application to open your new account</p>
+            <div className="header-actions">
               <button 
-                className="error-dismiss"
-                onClick={() => setError(null)}
+                className="btn btn-presentation"
+                onClick={handleEnterPresentation}
               >
-                ×
+                🎯 Start Presentation
               </button>
             </div>
-          )}
-          
-          {currentView === 'form' && (
-            <ApplicationForm 
-              onSubmit={handleFormSubmit}
-              isSubmitting={isSubmitting}
-            />
-          )}
-          
-          {currentView === 'outcome' && (
-            <OutcomeCard 
-              outcome={outcome}
-              onStartNew={handleStartNew}
-            />
-          )}
-        </div>
-      </main>
+          </header>
+          <main className="App-main">
+            <div className="container">
+              {error && (
+                <div className="error-banner">
+                  <strong>Error:</strong> {error}
+                  <button 
+                    className="error-dismiss"
+                    onClick={() => setError(null)}
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
+              
+              {currentView === 'form' && (
+                <ApplicationForm 
+                  onSubmit={handleFormSubmit}
+                  isSubmitting={isSubmitting}
+                />
+              )}
+              
+              {currentView === 'outcome' && (
+                <OutcomeCard 
+                  outcome={outcome}
+                  onStartNew={handleStartNew}
+                />
+              )}
+            </div>
+          </main>
+        </>
+      )}
     </div>
   );
 }
