@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Alloy Demo Presentation Mode', () => {
+test.describe('Alloy Demo Interactive Mode', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000');
   });
@@ -8,17 +8,17 @@ test.describe('Alloy Demo Presentation Mode', () => {
   test.describe('Desktop View', () => {
     test.use({ viewport: { width: 1920, height: 1080 } });
 
-    test('should display presentation button in header', async ({ page }) => {
-      const presentationBtn = page.locator('button:has-text("Start Presentation")');
-      await expect(presentationBtn).toBeVisible();
+    test('should display demo button in header', async ({ page }) => {
+      const demoBtn = page.locator('button:has-text("View Demo")');
+      await expect(demoBtn).toBeVisible();
     });
 
-    test('should enter presentation mode when button is clicked', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+    test('should enter demo mode when button is clicked', async ({ page }) => {
+      await page.click('button:has-text("View Demo")');
       
-      // Check that we're in presentation mode
+      // Check that we're in demo mode
       await expect(page.locator('.presentation-mode')).toBeVisible();
-      await expect(page.locator('.slide-title h1:has-text("Alloy Technical Account Manager")')).toBeVisible();
+      await expect(page.locator('.slide-title h1:has-text("Alloy Integration Demo")')).toBeVisible();
     });
 
     test('should navigate through all slides with keyboard', async ({ page }) => {
@@ -57,7 +57,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     test.use({ viewport: { width: 768, height: 1024 } });
 
     test('should be responsive on tablet', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Check that content is properly sized
       const title = page.locator('.slide-title h1');
@@ -77,7 +77,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     test.use({ viewport: { width: 375, height: 667 } });
 
     test('should be responsive on mobile', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Check that navigation controls are properly sized
       const navBtn = page.locator('.nav-btn');
@@ -96,7 +96,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
 
     test('should handle landscape orientation', async ({ page }) => {
       await page.setViewportSize({ width: 667, height: 375 });
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Check that content is still visible and properly sized
       await expect(page.locator('.slide-title h1')).toBeVisible();
@@ -107,7 +107,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     test.use({ viewport: { width: 1920, height: 1080 } });
 
     test('should show live application form in demo', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Navigate to live demo slide
       for (let i = 0; i < 5; i++) {
@@ -121,7 +121,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     });
 
     test('should handle form submission in demo', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Navigate to live demo slide
       for (let i = 0; i < 5; i++) {
@@ -149,7 +149,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     });
 
     test('should test manual review scenario', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Navigate to live demo slide
       for (let i = 0; i < 5; i++) {
@@ -181,7 +181,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     test.use({ viewport: { width: 1920, height: 1080 } });
 
     test('should handle fullscreen toggle', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       const fullscreenBtn = page.locator('button:has-text("⤢ Fullscreen")');
       await expect(fullscreenBtn).toBeVisible();
@@ -191,7 +191,7 @@ test.describe('Alloy Demo Presentation Mode', () => {
     });
 
     test('should auto-hide controls', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+      await page.click('button:has-text("View Demo")');
       
       // Wait for controls to auto-hide
       await page.waitForTimeout(3500);
@@ -204,15 +204,15 @@ test.describe('Alloy Demo Presentation Mode', () => {
       await expect(page.locator('.top-controls')).toBeVisible();
     });
 
-    test('should exit presentation mode', async ({ page }) => {
-      await page.click('button:has-text("Start Presentation")');
+    test('should exit demo mode', async ({ page }) => {
+      await page.click('button:has-text("View Demo")');
       
       const exitBtn = page.locator('button:has-text("✕ Exit")');
       await exitBtn.click();
       
       // Should be back to main app
       await expect(page.locator('.presentation-mode')).not.toBeVisible();
-      await expect(page.locator('button:has-text("Start Presentation")')).toBeVisible();
+      await expect(page.locator('button:has-text("View Demo")')).toBeVisible();
     });
   });
 });

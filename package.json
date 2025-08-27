@@ -8,7 +8,7 @@
     "start:backend": "cd backend && npm start",
     "test": "cd frontend && npm test",
     "test:playwright": "cd frontend && npx playwright test",
-    "test:presentation": "cd frontend && npx playwright test tests/presentation.spec.js",
+    "test:demo": "cd frontend && npx playwright test tests/presentation.spec.js",
     "test:layout": "cd frontend && npx playwright test tests/layout.spec.js",
     "test:responsive": "cd frontend && npx playwright test --project=Mobile\\ Chrome --project=Mobile\\ Safari",
     "playwright:install": "cd frontend && npm run playwright:install",

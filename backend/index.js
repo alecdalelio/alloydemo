@@ -86,8 +86,8 @@ function toAlloyPayload(applicant = {}) {
     address_state,
     address_postal_code,
     address_country_code,
-    document_ssn: formattedSsn, // Format SSN to 9 digits for Alloy API
-    email_address: applicant.email,
+    social_security_number: formattedSsn, // Alloy API expects social_security_number
+    email: applicant.email, // Alloy API expects email (not email_address)
     phone_number: applicant.phone || applicant.phoneNumber || "", // Required field per Alloy API
     birth_date,
   };

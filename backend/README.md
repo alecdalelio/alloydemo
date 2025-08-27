@@ -23,12 +23,19 @@ npm install
 ```
 
 ### Environment Setup
-Create a `.env` file in the backend directory:
+Copy the example environment file and configure it:
+```bash
+cp env.example .env
+```
+
+Edit the `.env` file with your Alloy credentials:
 ```env
 ALLOY_WORKFLOW_TOKEN=your_workflow_token_here
 ALLOY_WORKFLOW_SECRET=your_workflow_secret_here
 FRONTEND_ORIGIN=http://localhost:3000
 ```
+
+**Note**: Replace the placeholder values with your actual Alloy API credentials provided via secure email.
 
 ### Running the Server
 ```bash
@@ -158,7 +165,8 @@ The backend transforms frontend data to Alloy's API format:
 - `firstName` → `name_first`
 - `lastName` → `name_last`
 - `address1` → `address_line_1`
-- `ssn` → `document_ssn` (formatted to 9 digits)
+- `ssn` → `social_security_number` (formatted to 9 digits)
+- `email` → `email`
 - `birth_date` → `birth_date` (ISO format)
 
 ## 🚨 Error Handling

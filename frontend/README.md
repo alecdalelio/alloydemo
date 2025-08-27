@@ -1,6 +1,6 @@
 # Alloy Demo Frontend
 
-React.js frontend application for the Alloy Technical Account Manager assignment, featuring an interactive application form and presentation mode.
+React.js frontend application demonstrating Alloy API integration, featuring an interactive application form and demo mode.
 
 ## 🏗️ Architecture
 
@@ -41,7 +41,7 @@ npm run build      # Build for production
 ### Playwright Testing
 ```bash
 npm run test:playwright        # Run all Playwright tests
-npm run test:presentation      # Test presentation mode
+npm run test:demo             # Test demo mode
 npm run test:layout           # Test layout and UX
 npm run test:responsive       # Test responsive design
 npm run test:playwright:ui    # Run tests with UI
@@ -63,9 +63,9 @@ npm run playwright:codegen    # Generate test code interactively
 - **Responsive Design**: Works on desktop, tablet, and mobile
 - **Accessibility**: Proper labels, focus states, and keyboard navigation
 
-### Presentation Mode
-- **Interactive Slides**: Navigate through assignment overview
-- **Live Demo**: Real application form embedded in presentation
+### Demo Mode
+- **Interactive Slides**: Navigate through integration overview
+- **Live Demo**: Real application form embedded in demo
 - **Code Examples**: Syntax-highlighted code snippets
 - **Keyboard Navigation**: Arrow keys, space, ESC, F11
 - **Fullscreen Support**: Toggle fullscreen mode

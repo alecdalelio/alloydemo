@@ -22,7 +22,7 @@
     "test:playwright:ui": "playwright test --ui",
     "test:playwright:headed": "playwright test --headed",
     "test:playwright:debug": "playwright test --debug",
-    "test:presentation": "playwright test tests/presentation.spec.js",
+    "test:demo": "playwright test tests/presentation.spec.js",
     "test:layout": "playwright test tests/layout.spec.js",
     "test:responsive": "playwright test --project=Mobile\\ Chrome --project=Mobile\\ Safari",
     "playwright:install": "playwright install",

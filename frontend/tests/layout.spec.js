@@ -1,9 +1,9 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Presentation Layout and UX Validation', () => {
+test.describe('Demo Layout and UX Validation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000');
-    await page.click('button:has-text("Start Presentation")');
+    await page.click('button:has-text("View Demo")');
   });
 
   test.describe('Live Demo Slide Layout', () => {

@@ -14,16 +14,16 @@ const PresentationMode = ({ onExit }) => {
   const slides = [
     {
       id: 0,
-      title: "Alloy Technical Account Manager",
-      subtitle: "Assignment Presentation",
-      content: "Building a fraud prevention integration with Alloy's API to minimize fraudulent applications and reduce manual compliance reviews.",
+      title: "Alloy Integration Demo",
+      subtitle: "Reference Implementation",
+      content: "A complete example of integrating Alloy's identity verification API to minimize fraudulent applications and reduce manual compliance reviews.",
       type: "title",
       background: "gradient-1"
     },
     {
       id: 1,
-      title: "Assignment Overview",
-      content: "As a tech lead at a bank, I was tasked with building an integration with Alloy's API to prevent fraudulent applications from getting approved and reduce manual reviews from the compliance team.",
+      title: "Integration Overview",
+      content: "This demo showcases how to integrate Alloy's API into your application to prevent fraudulent applications from getting approved and reduce manual reviews from the compliance team.",
       type: "content",
       background: "gradient-2"
     },
@@ -108,7 +108,7 @@ app.post('/apply', async (req, res) => {
     },
     {
       id: 5,
-      title: "Live Demo",
+      title: "Interactive Demo",
       content: "Experience the complete application flow with real-time Alloy API integration and outcome handling.",
       type: "live-demo",
       background: "gradient-6"
@@ -303,7 +303,7 @@ app.post('/apply', async (req, res) => {
             <p>{slide.content}</p>
             <div className="demo-container">
               <div className="demo-header">
-                <span className="demo-label">Live Application Form</span>
+                <span className="demo-label">Interactive Application Form</span>
                 <div className="demo-controls">
                   <button 
                     className="demo-btn"

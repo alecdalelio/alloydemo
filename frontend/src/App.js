@@ -93,14 +93,14 @@ function App() {
       ) : (
         <>
           <header className="App-header">
-            <h1>🏦 Alloy Bank Application</h1>
-            <p>Complete your application to open your new account</p>
+            <h1>🏦 Alloy Integration Demo</h1>
+            <p>Complete your application to see Alloy's API in action</p>
             <div className="header-actions">
               <button 
                 className="btn btn-presentation"
                 onClick={handleEnterPresentation}
               >
-                🎯 Start Presentation
+                🎯 View Demo
               </button>
             </div>
           </header>
