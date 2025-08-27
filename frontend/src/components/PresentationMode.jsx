@@ -109,7 +109,6 @@ app.post('/apply', async (req, res) => {
     {
       id: 5,
       title: "Live Demo",
-      subtitle: "Interactive Application Process",
       content: "Experience the complete application flow with real-time Alloy API integration and outcome handling.",
       type: "live-demo",
       background: "gradient-6"
