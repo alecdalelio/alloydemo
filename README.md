@@ -253,45 +253,6 @@ To test the different outcome scenarios:
    REACT_APP_API_URL=https://alloydemo.onrender.com
    ```
 
-### Fly.io Deployment
-
-#### Prerequisites
-```bash
-# Install flyctl
-curl -L https://fly.io/install.sh | sh
-
-# Login to Fly.io
-fly auth login
-```
-
-#### Backend Deployment
-1. **Initialize Fly.io app**
-   ```bash
-   cd backend
-   fly launch
-   ```
-
-2. **Configure environment variables**
-   ```bash
-   fly secrets set ALLOY_WORKFLOW_TOKEN=your_workflow_token
-   fly secrets set ALLOY_WORKFLOW_SECRET=your_workflow_secret
-   fly secrets set FRONTEND_ORIGIN=https://your-frontend-app.fly.dev
-   ```
-
-3. **Deploy**
-   ```bash
-   fly deploy
-   ```
-
-#### Frontend Deployment
-1. **Build and deploy**
-   ```bash
-   cd frontend
-   npm run build
-   fly launch
-   fly deploy
-   ```
-
 ### Vercel Deployment
 
 #### Frontend Deployment
@@ -410,7 +371,7 @@ This application demonstrates a complete integration with Alloy's API:
 - 🎨 **Modern UI/UX**: Professional banking interface with smooth animations
 - 🔧 **Developer Experience**: Hot reload, auto-port detection, comprehensive logging
 - 📊 **Real-time Validation**: Instant feedback on form fields
-- 🚀 **Deployment Ready**: Configured for Render, Fly.io, Vercel, and more
+- 🚀 **Deployment Ready**: Configured for Render and Vercel
 
 ### 📋 **Implementation Details**
 
