@@ -3,36 +3,36 @@
 
 /* CSS Custom Properties for Alloy Brand Colors */
 :root {
-  /* Primary Brand Colors - Professional Blue Palette */
-  --alloy-primary: #1e3a8a;
-  --alloy-primary-light: #3b82f6;
-  --alloy-primary-dark: #1e40af;
-  --alloy-accent: #06b6d4;
-  --alloy-accent-light: #22d3ee;
-  --alloy-accent-dark: #0891b2;
+  /* Primary Brand Colors */
+  --alloy-primary: #1a365d;
+  --alloy-primary-light: #2d5a87;
+  --alloy-primary-dark: #0f2027;
+  --alloy-accent: #3182ce;
+  --alloy-accent-light: #4299e1;
+  --alloy-accent-dark: #2b6cb0;
   
-  /* Secondary Colors - Professional Gray Scale */
-  --alloy-secondary: #64748b;
-  --alloy-secondary-light: #94a3b8;
-  --alloy-secondary-dark: #475569;
-  --alloy-warning: #f59e0b;
-  --alloy-warning-light: #fbbf24;
-  --alloy-warning-dark: #d97706;
-  --alloy-error: #ef4444;
-  --alloy-error-light: #f87171;
-  --alloy-error-dark: #dc2626;
+  /* Secondary Colors */
+  --alloy-secondary: #38a169;
+  --alloy-secondary-light: #48bb78;
+  --alloy-secondary-dark: #2f855a;
+  --alloy-warning: #d69e2e;
+  --alloy-warning-light: #ecc94b;
+  --alloy-warning-dark: #b7791f;
+  --alloy-error: #e53e3e;
+  --alloy-error-light: #f56565;
+  --alloy-error-dark: #c53030;
   
-  /* Neutral Grays - Professional Scale */
-  --alloy-gray-50: #f8fafc;
-  --alloy-gray-100: #f1f5f9;
+  /* Neutral Grays */
+  --alloy-gray-50: #f7fafc;
+  --alloy-gray-100: #edf2f7;
   --alloy-gray-200: #e2e8f0;
-  --alloy-gray-300: #cbd5e1;
-  --alloy-gray-400: #94a3b8;
-  --alloy-gray-500: #64748b;
-  --alloy-gray-600: #475569;
-  --alloy-gray-700: #334155;
-  --alloy-gray-800: #1e293b;
-  --alloy-gray-900: #0f172a;
+  --alloy-gray-300: #cbd5e0;
+  --alloy-gray-400: #a0aec0;
+  --alloy-gray-500: #718096;
+  --alloy-gray-600: #4a5568;
+  --alloy-gray-700: #2d3748;
+  --alloy-gray-800: #1a202c;
+  --alloy-gray-900: #171923;
   
   /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -92,212 +92,44 @@
   z-index: 9999;
 }
 
-/* Professional Background Gradients - Enterprise Color Scheme */
+/* Professional Background Gradients - Alloy Brand */
 .presentation-mode.gradient-1 {
-  position: relative;
   background: linear-gradient(135deg, var(--alloy-primary) 0%, var(--alloy-primary-dark) 100%);
   color: var(--alloy-gray-50);
-  overflow: hidden;
 }
 
-/* Enhanced Multi-Layer Background System */
-.presentation-mode.gradient-1::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    /* Data Orchestration Network - Primary radial gradients */
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(100, 116, 139, 0.04) 0%, transparent 60%),
-    
-    /* Abstract Data Flow Lines - Diagonal linear gradients */
-    linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.03) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 20%, rgba(6, 182, 212, 0.02) 40%, transparent 60%),
-    
-    /* Technical Grid Pattern - Subtle repeating grid */
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 100px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 100px);
-  
-  background-size: 
-    800px 800px,  /* Primary data source */
-    700px 700px,  /* Secondary data source */
-    900px 900px,  /* Tertiary data source */
-    1200px 1200px, /* Data flow line 1 */
-    1000px 1000px, /* Data flow line 2 */
-    100px 100px,   /* Grid pattern X */
-    100px 100px;   /* Grid pattern Y */
-  
-  background-position: 
-    0 0,           /* Primary data source */
-    0 0,           /* Secondary data source */
-    0 0,           /* Tertiary data source */
-    0 0,           /* Data flow line 1 */
-    0 0,           /* Data flow line 2 */
-    0 0,           /* Grid pattern X */
-    0 0;           /* Grid pattern Y */
-  
-  pointer-events: none;
-  animation: dataFlow 30s ease-in-out infinite;
-  z-index: 1;
-}
-
-/* Secondary Background Layer for Depth */
-.presentation-mode.gradient-1::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    /* Additional depth layers */
-    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.03) 0%, transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(6, 182, 212, 0.02) 0%, transparent 30%),
-    radial-gradient(circle at 30% 70%, rgba(100, 116, 139, 0.015) 0%, transparent 40%);
-  
-  background-size: 
-    600px 600px,
-    500px 500px,
-    750px 750px;
-  
-  background-position: 
-    0 0,
-    0 0,
-    0 0;
-  
-  pointer-events: none;
-  animation: dataFlowSecondary 25s ease-in-out infinite reverse;
-  z-index: 2;
-}
-
-/* Data Flow Animation System */
-@keyframes dataFlow {
-  0%, 100% {
-    background-position: 
-      0 0,
-      0 0,
-      0 0,
-      0 0,
-      0 0,
-      0 0,
-      0 0;
-    transform: scale(1) translateY(0px);
-    opacity: 1;
-  }
-  25% {
-    background-position: 
-      50px 30px,
-      -30px 50px,
-      20px -40px,
-      100px 100px,
-      -80px 120px,
-      10px 10px,
-      15px 15px;
-    transform: scale(1.02) translateY(-2px);
-    opacity: 0.95;
-  }
-  50% {
-    background-position: 
-      -20px 60px,
-      40px -20px,
-      -50px 30px,
-      200px 200px,
-      -160px 240px,
-      20px 20px,
-      30px 30px;
-    transform: scale(0.98) translateY(3px);
-    opacity: 0.9;
-  }
-  75% {
-    background-position: 
-      30px -30px,
-      -60px 40px,
-      40px -60px,
-      300px 300px,
-      -240px 360px,
-      30px 30px,
-      45px 45px;
-    transform: scale(1.01) translateY(-1px);
-    opacity: 0.95;
-  }
-}
-
-@keyframes dataFlowSecondary {
-  0%, 100% {
-    background-position: 
-      0 0,
-      0 0,
-      0 0;
-    transform: scale(1) translateY(0px);
-    opacity: 0.8;
-  }
-  33% {
-    background-position: 
-      -40px 20px,
-      30px -40px,
-      -20px 50px;
-    transform: scale(1.03) translateY(-3px);
-    opacity: 0.7;
-  }
-  66% {
-    background-position: 
-      20px -50px,
-      -50px 30px,
-      40px -30px;
-    transform: scale(0.97) translateY(2px);
-    opacity: 0.6;
-  }
-}
-
-/* Content Breathing Animation */
-@keyframes contentBreathing {
-  0%, 100% {
-    transform: scale(1) translateY(0px);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.01) translateY(-1px);
-    opacity: 0.98;
-  }
-}
-
-/* Professional Gradient Backgrounds - Enterprise Color Scheme */
 .presentation-mode.gradient-2 {
   background: linear-gradient(135deg, var(--alloy-gray-50) 0%, var(--alloy-gray-100) 100%);
   color: var(--alloy-gray-800);
 }
 
 .presentation-mode.gradient-3 {
-  background: linear-gradient(135deg, var(--alloy-gray-100) 0%, var(--alloy-primary-light) 100%);
+  background: linear-gradient(135deg, var(--alloy-gray-100) 0%, var(--alloy-accent-light) 100%);
   color: var(--alloy-gray-800);
 }
 
 .presentation-mode.gradient-4 {
-  background: linear-gradient(135deg, var(--alloy-primary-light) 0%, var(--alloy-primary) 100%);
-  color: white;
-}
-
-.presentation-mode.gradient-5 {
   background: linear-gradient(135deg, var(--alloy-accent-light) 0%, var(--alloy-accent) 100%);
   color: white;
 }
 
-.presentation-mode.gradient-6 {
+.presentation-mode.gradient-5 {
   background: linear-gradient(135deg, var(--alloy-secondary-light) 0%, var(--alloy-secondary) 100%);
   color: white;
 }
 
+.presentation-mode.gradient-6 {
+  background: linear-gradient(135deg, var(--alloy-warning-light) 0%, var(--alloy-warning) 100%);
+  color: white;
+}
+
 .presentation-mode.gradient-7 {
-  background: linear-gradient(135deg, var(--alloy-gray-200) 0%, var(--alloy-gray-300) 100%);
-  color: var(--alloy-gray-800);
+  background: linear-gradient(135deg, var(--alloy-error-light) 0%, var(--alloy-error) 100%);
+  color: white;
 }
 
 .presentation-mode.gradient-8 {
-  background: linear-gradient(135deg, var(--alloy-gray-300) 0%, var(--alloy-gray-400) 100%);
+  background: linear-gradient(135deg, var(--alloy-gray-200) 0%, var(--alloy-gray-300) 100%);
   color: var(--alloy-gray-800);
 }
 
@@ -309,81 +141,6 @@
 .presentation-mode.gradient-10 {
   background: linear-gradient(135deg, var(--alloy-gray-800) 0%, var(--alloy-primary) 100%);
   color: var(--alloy-gray-50);
-  overflow: hidden;
-}
-
-/* Enhanced Multi-Layer Background System for Slide 10 */
-.presentation-mode.gradient-10::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    /* Data Orchestration Network - Primary radial gradients */
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(100, 116, 139, 0.04) 0%, transparent 60%),
-    
-    /* Abstract Data Flow Lines - Diagonal linear gradients */
-    linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.03) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 20%, rgba(6, 182, 212, 0.02) 40%, transparent 60%),
-    
-    /* Technical Grid Pattern - Subtle repeating grid */
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 100px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 100px);
-  
-  background-size: 
-    800px 800px,  /* Primary data source */
-    700px 700px,  /* Secondary data source */
-    900px 900px,  /* Tertiary data source */
-    1200px 1200px, /* Data flow line 1 */
-    1000px 1000px, /* Data flow line 2 */
-    100px 100px,   /* Grid pattern X */
-    100px 100px;   /* Grid pattern Y */
-  
-  background-position: 
-    0 0,           /* Primary data source */
-    0 0,           /* Secondary data source */
-    0 0,           /* Tertiary data source */
-    0 0,           /* Data flow line 1 */
-    0 0,           /* Data flow line 2 */
-    0 0,           /* Grid pattern X */
-    0 0;           /* Grid pattern Y */
-  
-  pointer-events: none;
-  animation: dataFlow 30s ease-in-out infinite;
-  z-index: 1;
-}
-
-/* Secondary Background Layer for Depth */
-.presentation-mode.gradient-10::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    /* Additional depth layers */
-    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.03) 0%, transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(6, 182, 212, 0.02) 0%, transparent 30%),
-    radial-gradient(circle at 30% 70%, rgba(100, 116, 139, 0.015) 0%, transparent 40%);
-  
-  background-size: 
-    600px 600px,
-    500px 500px,
-    750px 750px;
-  
-  background-position: 
-    0 0,
-    0 0,
-    0 0;
-  
-  pointer-events: none;
-  animation: dataFlowSecondary 25s ease-in-out infinite reverse;
-  z-index: 2;
 }
 
 /* Enhanced Slide Container with Premium Animations */
@@ -396,17 +153,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xl) var(--space-lg) var(--space-2xl) var(--space-lg);
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl) var(--space-lg);
   text-align: center;
   animation: slideInPremium var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: visible;
+  overflow: hidden;
   box-sizing: border-box;
-  z-index: 10;
 }
 
 .slide-container > * {
   max-width: 100%;
-  overflow: visible;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 @keyframes slideInPremium {
@@ -420,84 +177,39 @@
   }
 }
 
-/* Professional Typography Hierarchy - Enhanced for Enterprise */
+/* Professional Typography Hierarchy */
 .slide-title h1 {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 800;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
   color: inherit;
   animation: titleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 11;
-}
-
-/* Subtle breathing animation for title slide content */
-.presentation-mode.gradient-1 .slide-title h1 {
-  animation: titleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1), 
-             contentBreathing 8s ease-in-out infinite;
-}
-
-.presentation-mode.gradient-1 .slide-title h2 {
-  animation: subtitleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 0.1s both, 
-             contentBreathing 8s ease-in-out infinite 0.5s;
-}
-
-.presentation-mode.gradient-1 .slide-title p {
-  animation: contentSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 0.2s both, 
-             contentBreathing 8s ease-in-out infinite 1s;
-}
-
-/* Enhanced animations for slide 7 content */
-.presentation-mode.gradient-7 .slide-demo-redirect h2 {
-  animation: titleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1), 
-             contentBreathing 8s ease-in-out infinite;
-  position: relative;
-  z-index: 11;
-}
-
-.presentation-mode.gradient-7 .slide-demo-redirect h3 {
-  animation: subtitleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 0.1s both, 
-             contentBreathing 8s ease-in-out infinite 0.5s;
-  position: relative;
-  z-index: 11;
-}
-
-.presentation-mode.gradient-7 .slide-demo-redirect p {
-  animation: contentSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 0.2s both, 
-             contentBreathing 8s ease-in-out infinite 1s;
-  position: relative;
-  z-index: 11;
-}
-
-.presentation-mode.gradient-7 .demo-redirect-container {
-  position: relative;
-  z-index: 11;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .slide-title h2 {
   font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 600;
-  margin-bottom: var(--space-xl);
+  font-weight: 400;
+  margin-bottom: var(--space-md);
   color: inherit;
-  opacity: 0.95;
+  opacity: 0.9;
   animation: subtitleSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
   animation-delay: 0.1s;
   animation-fill-mode: both;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.3;
 }
 
 .slide-title p {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  max-width: 600px;
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  max-width: 500px;
   margin: 0 auto;
-  margin-bottom: var(--space-2xl);
-  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
   color: inherit;
-  opacity: 0.9;
+  opacity: 0.8;
   animation: contentSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
   animation-delay: 0.2s;
   animation-fill-mode: both;
@@ -535,22 +247,22 @@
   font-weight: 400;
 }
 
-/* Professional List Slides - Enhanced Typography */
+/* Professional List Slides */
 .slide-list h2 {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
   font-weight: 700;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
   color: inherit;
   letter-spacing: -0.02em;
   line-height: 1.3;
 }
 
 .slide-list h3 {
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 600;
-  margin-bottom: var(--space-lg);
+  font-size: clamp(0.875rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
   color: inherit;
-  opacity: 0.95;
+  opacity: 0.9;
   letter-spacing: -0.01em;
   line-height: 1.4;
 }
@@ -558,87 +270,29 @@
 .slide-list ul {
   list-style: none;
   padding: 0;
-  max-width: 550px;
+  max-width: 450px;
   margin: 0 auto;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-xs);
 }
 
 .slide-list li {
   font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-  padding: var(--space-md) var(--space-lg);
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--alloy-gray-800);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   animation: listItemSlideIn var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
   animation-fill-mode: both;
-  line-height: 1.6;
+  line-height: 1.4;
   font-weight: 500;
   backdrop-filter: blur(10px);
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
-}
-
-/* Professional Icon Styling */
-.professional-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--alloy-accent);
-  transition: all var(--transition-normal);
-  filter: drop-shadow(0 1px 2px rgba(6, 182, 212, 0.3));
-}
-
-.list-item-content {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-  width: 100%;
-}
-
-.list-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.5rem;
-  height: 2.5rem;
-  background: rgba(6, 182, 212, 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm);
-  transition: all var(--transition-normal);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-}
-
-.list-item-text {
-  flex: 1;
-  font-weight: 500;
-}
-
-.tech-item-content {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  width: 100%;
-}
-
-.tech-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2rem;
-  height: 2rem;
-  background: rgba(6, 182, 212, 0.1);
-  border-radius: var(--radius-md);
-  padding: var(--space-xs);
-  transition: all var(--transition-normal);
-}
-
-.tech-item-text {
-  flex: 1;
-  font-weight: 500;
 }
 
 .slide-list li::before {
@@ -656,16 +310,6 @@
 .slide-list li:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl);
-}
-
-.slide-list li:hover .list-item-icon {
-  background: rgba(6, 182, 212, 0.2);
-  transform: scale(1.1);
-}
-
-.slide-list li:hover .professional-icon {
-  color: var(--alloy-accent-dark);
-  transform: scale(1.1);
 }
 
 .slide-list li:hover::before {
@@ -734,16 +378,6 @@
   transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-2xl);
   color: white;
-}
-
-.tech-item:hover .tech-item-icon {
-  background: rgba(6, 182, 212, 0.3);
-  transform: scale(1.1);
-}
-
-.tech-item:hover .professional-icon {
-  color: var(--alloy-accent-light);
-  transform: scale(1.1);
 }
 
 .tech-item:hover::before {
@@ -836,13 +470,12 @@
 /* Enhanced Code Highlight Component */
 .code-highlight-container {
   background: var(--alloy-gray-900);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  border: 2px solid rgba(6, 182, 212, 0.2);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   max-height: 40vh;
   position: relative;
-  backdrop-filter: blur(20px);
 }
 
 .code-highlight-container::before {
@@ -852,7 +485,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--alloy-accent) 0%, var(--alloy-accent-light) 50%, var(--alloy-primary-light) 100%);
+  background: linear-gradient(90deg, var(--alloy-accent) 0%, var(--alloy-secondary) 50%, var(--alloy-warning) 100%);
 }
 
 .code-header {
@@ -897,17 +530,16 @@
 .code-content {
   background: var(--alloy-gray-900);
   color: var(--alloy-gray-100);
-  padding: var(--space-lg);
+  padding: var(--space-md);
   margin: 0;
   font-family: var(--font-mono);
   font-size: clamp(0.625rem, 1vw, 0.75rem);
-  line-height: 1.5;
+  line-height: 1.4;
   overflow-x: auto;
   overflow-y: auto;
   text-align: left;
   max-height: 30vh;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .code-content code {
@@ -915,192 +547,48 @@
   font-family: inherit;
 }
 
-/* Code Fullscreen Styles */
-.code-fullscreen-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-lg);
-  backdrop-filter: blur(10px);
-}
-
-.code-fullscreen-modal {
-  background: var(--alloy-gray-900);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-2xl);
-  border: 2px solid rgba(6, 182, 212, 0.3);
-  max-width: 90vw;
-  max-height: 90vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(20px);
-  animation: modalSlideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.code-fullscreen-header {
-  background: var(--alloy-gray-800);
-  padding: var(--space-lg) var(--space-xl);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.code-fullscreen-language {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  font-weight: 600;
-  color: var(--alloy-gray-300);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.code-fullscreen-actions {
-  display: flex;
-  gap: var(--space-md);
-}
-
-.code-fullscreen-content {
-  background: var(--alloy-gray-900);
-  color: var(--alloy-gray-100);
-  padding: var(--space-xl);
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-  line-height: 1.6;
-  overflow-x: auto;
-  overflow-y: auto;
-  text-align: left;
-  flex: 1;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-
-.code-fullscreen-content code {
-  color: inherit;
-  font-family: inherit;
-}
-
-@keyframes modalSlideIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Responsive adjustments for fullscreen */
-@media (max-width: 768px) {
-  .code-fullscreen-overlay {
-    padding: var(--space-sm);
-  }
-  
-  .code-fullscreen-modal {
-    max-width: 95vw;
-    max-height: 95vh;
-  }
-  
-  .code-fullscreen-header {
-    padding: var(--space-md) var(--space-lg);
-  }
-  
-  .code-fullscreen-content {
-    padding: var(--space-lg);
-    font-size: clamp(0.625rem, 2vw, 0.75rem);
-  }
-}
-
-/* Enhanced Syntax Highlighting - Professional Color Scheme */
+/* Enhanced Syntax Highlighting */
 .code-content .keyword {
-  color: #3b82f6;
+  color: #ff79c6;
   font-weight: 600;
 }
 
 .code-content .string {
-  color: #fbbf24;
+  color: #f1fa8c;
 }
 
 .code-content .comment {
-  color: #64748b;
+  color: #6272a4;
   font-style: italic;
 }
 
 .code-content .function {
-  color: #10b981;
+  color: #50fa7b;
   font-weight: 500;
 }
 
 .code-content .number {
-  color: #8b5cf6;
+  color: #bd93f9;
 }
 
 .code-content .template {
-  color: #3b82f6;
+  color: #ff79c6;
 }
 
 .code-content .template-content {
-  color: #fbbf24;
+  color: #f1fa8c;
 }
 
 .code-content .jsx-tag {
-  color: #ec4899;
-}
-
-.code-content .operator {
-  color: #06b6d4;
-}
-
-.code-content .regex {
-  color: #f97316;
-}
-
-.code-content .property {
-  color: #06b6d4;
-}
-
-.code-content .variable {
-  color: #e2e8f0;
-}
-
-.code-content .class-name {
-  color: #3b82f6;
-  font-weight: 600;
-}
-
-.code-content .method {
-  color: #10b981;
-  font-weight: 500;
-}
-
-.code-content .constant {
-  color: #f59e0b;
-  font-weight: 600;
+  color: #ff79c6;
 }
 
 /* Syntax Highlighting for existing code snippets */
-.code-snippet .keyword { color: #3b82f6; }
-.code-snippet .string { color: #fbbf24; }
-.code-snippet .comment { color: #64748b; }
-.code-snippet .function { color: #10b981; }
-.code-snippet .number { color: #8b5cf6; }
-.code-snippet .operator { color: #06b6d4; }
-.code-snippet .regex { color: #f97316; }
-.code-snippet .property { color: #06b6d4; }
-.code-snippet .variable { color: #e2e8f0; }
-.code-snippet .class-name { color: #3b82f6; }
-.code-snippet .method { color: #10b981; }
-.code-snippet .constant { color: #f59e0b; }
+.code-snippet .keyword { color: #ff79c6; }
+.code-snippet .string { color: #f1fa8c; }
+.code-snippet .comment { color: #6272a4; }
+.code-snippet .function { color: #50fa7b; }
+.code-snippet .number { color: #bd93f9; }
 
 /* Enhanced Demo Redirect */
 .slide-demo-redirect h2 {
@@ -1141,8 +629,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  overflow: visible;
-  margin-bottom: 120px;
+  max-height: 50vh;
+  overflow: hidden;
 }
 
 /* Technical Showcase Section */
@@ -1151,7 +639,7 @@
   border-radius: var(--radius-xl);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  overflow: visible;
+  overflow: hidden;
   box-shadow: var(--shadow-xl);
   position: relative;
 }
@@ -1181,15 +669,16 @@
 
 .tech-showcase-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
-  padding: var(--space-lg);
-  overflow: visible;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  max-height: 25vh;
+  overflow: hidden;
 }
 
 .tech-showcase-item {
   text-align: center;
-  padding: var(--space-md);
+  padding: var(--space-xs);
   background: white;
   border-radius: var(--radius-lg);
   border: 1px solid var(--alloy-gray-200);
@@ -1197,7 +686,7 @@
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
-  min-height: 100px;
+  min-height: 70px;
 }
 
 .tech-showcase-item::before {
@@ -1222,53 +711,29 @@
 }
 
 .tech-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  margin: 0 auto var(--space-sm);
-  background: rgba(6, 182, 212, 0.1);
-  border-radius: var(--radius-lg);
-  animation: iconFloat 8s ease-in-out infinite;
-  transition: all var(--transition-normal);
-}
-
-.tech-icon .professional-icon {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: var(--alloy-accent);
-  transition: all var(--transition-normal);
-}
-
-.tech-showcase-item:hover .tech-icon {
-  background: rgba(6, 182, 212, 0.2);
-  transform: scale(1.05);
-}
-
-.tech-showcase-item:hover .tech-icon .professional-icon {
-  color: var(--alloy-accent-dark);
-  transform: scale(1.1);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin-bottom: var(--space-xs);
+  animation: iconFloat 3s ease-in-out infinite;
 }
 
 @keyframes iconFloat {
-  0%, 100% { transform: translateY(0px); opacity: 1; }
-  50% { transform: translateY(-1px); opacity: 0.98; }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
 }
 
 .tech-showcase-item h4 {
-  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+  font-size: clamp(0.625rem, 0.8vw, 0.75rem);
   font-weight: 600;
   color: var(--alloy-gray-800);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
   letter-spacing: -0.01em;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .tech-showcase-item p {
-  font-size: clamp(0.625rem, 0.8vw, 0.75rem);
+  font-size: clamp(0.5rem, 0.7vw, 0.625rem);
   color: var(--alloy-gray-600);
-  line-height: 1.4;
+  line-height: 1.2;
   margin: 0;
   font-weight: 400;
   overflow: hidden;
@@ -1372,22 +837,13 @@
 }
 
 .btn-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: rocketPulse 6s ease-in-out infinite;
-}
-
-.btn-icon .professional-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: white;
-  transition: all var(--transition-normal);
+  font-size: 1.25rem;
+  animation: rocketPulse 2s ease-in-out infinite;
 }
 
 @keyframes rocketPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.02); opacity: 0.98; }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .btn-text {
@@ -1412,15 +868,15 @@
 
 .control-btn {
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--alloy-gray-800);
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-size: clamp(0.875rem, 1.5vw, 1rem);
-  font-weight: 600;
+  font-weight: 500;
   transition: all var(--transition-normal);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   backdrop-filter: blur(10px);
   letter-spacing: -0.01em;
 }
@@ -1444,7 +900,7 @@
 
 .nav-btn {
   background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--alloy-gray-800);
   width: clamp(50px, 8vw, 60px);
   height: clamp(50px, 8vw, 60px);
@@ -1455,9 +911,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   backdrop-filter: blur(10px);
-  font-weight: 600;
 }
 
 .nav-btn:hover:not(:disabled) {
@@ -1473,7 +928,7 @@
 
 .bottom-controls {
   position: absolute;
-  bottom: 20px;
+  bottom: var(--space-md);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1493,11 +948,10 @@
 .slide-counter {
   font-size: clamp(0.875rem, 1.5vw, 1rem);
   color: inherit;
-  opacity: 0.9;
+  opacity: 0.8;
   min-width: 80px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
@@ -1511,10 +965,10 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--alloy-accent) 0%, var(--alloy-accent-light) 50%, var(--alloy-primary-light) 100%);
+  background: linear-gradient(90deg, var(--alloy-accent) 0%, var(--alloy-secondary) 50%, var(--alloy-warning) 100%);
   border-radius: 3px;
   transition: width var(--transition-normal);
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
 }
 
 .slide-dots {
@@ -1527,7 +981,7 @@
   height: clamp(10px, 2vw, 12px);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
-  border: 2px solid rgba(6, 182, 212, 0.2);
+  border: none;
   cursor: pointer;
   transition: all var(--transition-normal);
 }
@@ -1540,8 +994,7 @@
 .dot.active {
   background: var(--alloy-accent);
   transform: scale(1.3);
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
-  border-color: var(--alloy-accent-light);
+  box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
 }
 
 
@@ -1626,14 +1079,11 @@
   
   .demo-redirect-container {
     max-width: 700px;
-    margin-bottom: 100px;
   }
   
   .tech-showcase-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
-    max-height: none;
-    overflow: visible;
   }
   
 
@@ -1662,14 +1112,11 @@
   
   .demo-redirect-container {
     max-width: 600px;
-    margin-bottom: 80px;
   }
   
   .tech-showcase-grid {
     grid-template-columns: 1fr;
     gap: var(--space-md);
-    max-height: none;
-    overflow: visible;
   }
   
   .side-controls {
@@ -1686,7 +1133,7 @@
   }
   
   .bottom-controls {
-    bottom: 15px;
+    bottom: var(--space-sm);
   }
 }
 
@@ -1712,14 +1159,11 @@
   
   .demo-redirect-container {
     max-width: 550px;
-    margin-bottom: 60px;
   }
   
   .tech-showcase-grid {
     grid-template-columns: 1fr;
     gap: var(--space-sm);
-    max-height: none;
-    overflow: visible;
   }
   
   .tech-showcase-item {

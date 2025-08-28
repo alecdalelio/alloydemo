@@ -11,10 +11,10 @@
  * - Implementation challenges and solutions
  * - Code quality and best practices
  * - Production readiness and testing strategy
- * - Live technical demonstration
+ * - Technical showcase and landing page transition
  * 
  * @author Alec Dalelio
- * @version 2.0.0
+ * @version 4.0.0
  * @since 2024-01-01
  * 
  * @component
@@ -23,81 +23,264 @@
 
 import React, { useState, useEffect } from 'react';
 import './PresentationMode.css';
-import ApplicationForm from './ApplicationForm';
+import CodeHighlight from './CodeHighlight';
+
+// Professional SVG Icons Component
+const ProfessionalIcon = ({ type, className = "" }) => {
+  const icons = {
+    target: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+      </svg>
+    ),
+    architecture: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5zM12 20c-4.41 0-8-3.59-8-8V8.5l8-4 8 4V12c0 4.41-3.59 8-8 8z"/>
+        <path d="M12 6l-6 3v3c0 3.31 2.69 6 6 6s6-2.69 6-6V9l-6-3z"/>
+      </svg>
+    ),
+    lightning: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+      </svg>
+    ),
+    shield: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 1L3 5v6c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V5l-9-4z"/>
+      </svg>
+    ),
+    chart: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+      </svg>
+    ),
+    test: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    ),
+    react: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    ),
+    express: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    state: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    api: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    ),
+    security: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 1L3 5v6c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V5l-9-4z"/>
+      </svg>
+    ),
+    responsive: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+      </svg>
+    ),
+    lock: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/>
+      </svg>
+    ),
+    validation: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    ),
+    transform: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+      </svg>
+    ),
+    error: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+    ),
+    normalize: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    testing: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    ),
+    documentation: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+      </svg>
+    ),
+    performance: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.5 2.54l2.6 1.53c.56-1.24.9-2.62.9-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+      </svg>
+    ),
+    accessibility: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+      </svg>
+    ),
+    modular: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    monitoring: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+      </svg>
+    ),
+    compliance: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    ),
+    scalability: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 14l5-5 5 5z"/>
+      </svg>
+    ),
+    e2e: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    ),
+    unit: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+      </svg>
+    ),
+    integration: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    coverage: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+      </svg>
+    ),
+    load: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.5 2.54l2.6 1.53c.56-1.24.9-2.62.9-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+      </svg>
+    ),
+    cicd: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    arrow: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+      </svg>
+    ),
+    gear: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+      </svg>
+    ),
+    database: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    ),
+    alert: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+    ),
+    settings: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+      </svg>
+    ),
+    microscope: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+      </svg>
+    ),
+    connection: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    ),
+    pipeline: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    )
+  };
+
+  return icons[type] || null;
+};
 
 const PresentationMode = ({ onExit }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [demoOutcome, setDemoOutcome] = useState(null);
-  const [demoError, setDemoError] = useState(null);
+  const [slideDirection, setSlideDirection] = useState('next');
 
   /**
-   * Technical presentation slides data
+   * Enhanced technical presentation slides data
    * Each slide demonstrates different aspects of the technical implementation
    */
   const slides = [
     {
       id: 0,
       title: "Alloy Integration Demo",
-      subtitle: "Technical Implementation Review",
-      content: "A demonstration of the Alloy API integration assignment, showing how I approached the technical challenges and built a production-ready solution.",
+      subtitle: "Technical Implementation & Business Value",
+      content: "API integration with comprehensive validation, testing, and production-ready deployment. Demonstrates modern development practices and technical implementation.",
       type: "title",
       background: "gradient-1"
     },
     {
       id: 1,
-      title: "Understanding the Requirements",
-      subtitle: "How I approached the assignment",
+      title: "Technical Architecture & Standards",
+      subtitle: "Design Decisions & Implementation Approach",
       content: [
-        "🔍 Studied Alloy's evaluation API and sandbox environment",
-        "📋 Built a complete frontend form with validation",
-        "🎯 Created a backend API gateway to Alloy",
-        "⚡ Implemented real-time form validation and error display",
-        "🛡️ Added input sanitization and basic security measures",
-        "📊 Built outcome cards for approved/denied/review scenarios"
+        { icon: "architecture", text: "React.js component architecture with modular design patterns and maintainable code structure" },
+        { icon: "lightning", text: "Express.js API gateway with middleware ecosystem, rate limiting, and comprehensive error handling" },
+        { icon: "shield", text: "Security-first approach with CORS protection, input validation, and environment-based credential management" },
+        { icon: "test", text: "End-to-end testing strategy with Playwright for complete user journey coverage and regression testing" }
       ],
       type: "list",
       background: "gradient-2"
     },
     {
       id: 2,
-      title: "Technical Architecture",
-      subtitle: "Design decisions and rationale",
+      title: "Implementation Challenges",
+      subtitle: "Problem Solving & Technical Solutions",
       content: [
-        "⚛️ React.js: Component-based architecture for maintainability",
-        "🚀 Express.js: Lightweight, performant API gateway",
-        "🎯 State Management: Local state with React hooks for simplicity",
-        "🔌 API Design: RESTful patterns with comprehensive error handling",
-        "🛡️ Security: Rate limiting, CORS, input validation",
-        "📱 Responsive Design: Mobile-first approach with accessibility"
+        { icon: "lock", text: "Secure API credential management with environment variables and production-ready authentication" },
+        { icon: "validation", text: "Real-time form validation with immediate user feedback and comprehensive error resolution" },
+        { icon: "transform", text: "Data transformation pipeline between frontend and Alloy API formats with validation and sanitization" },
+        { icon: "normalize", text: "Outcome normalization and consistent user experience across all API response states" }
       ],
       type: "list",
       background: "gradient-3"
     },
     {
       id: 3,
-      title: "Key Technical Challenges",
-      subtitle: "Problems I solved along the way",
-      content: [
-        "🔐 Secure API credential management and authentication",
-        "⚡ Real-time form validation with user feedback",
-        "🔄 Data transformation between frontend and Alloy API formats",
-        "🚨 Comprehensive error handling for production scenarios",
-        "📊 Outcome normalization and consistent user experience",
-        "🧪 Testing strategy with Playwright for end-to-end coverage"
-      ],
-      type: "list",
-      background: "gradient-4"
-    },
-    {
-      id: 4,
       title: "Frontend Implementation",
-      content: "Built a React application with enterprise-grade form validation, accessibility features, and professional error handling. Focused on modern development practices and user experience.",
+      content: "Built a React application with comprehensive form validation, accessibility features, and professional error handling. Implemented modern development practices, performance optimization, and user experience with real-time validation feedback.",
       type: "code",
-      background: "gradient-5",
-      codeSnippet: `// ApplicationForm.jsx - Form validation logic
+      background: "gradient-4",
+      codeSnippet: `// ApplicationForm.jsx - Real-time Validation & State Management
 const validateField = (name, value) => {
   switch (name) {
     case 'ssn':
@@ -105,7 +288,6 @@ const validateField = (name, value) => {
       const cleanSsn = value.replace(/[-\s]/g, '');
       if (!patterns.ssn.test(cleanSsn)) 
         return 'SSN must be 9 digits (no dashes)';
-      // Additional validation checks
       if (cleanSsn === '000000000' || cleanSsn === '111111111') 
         return 'SSN cannot be all zeros or ones';
       return '';
@@ -116,30 +298,79 @@ const validateField = (name, value) => {
         return 'Date must be YYYY-MM-DD format';
       const date = new Date(value);
       const today = new Date();
+      if (isNaN(date.getTime())) return 'Invalid date';
       if (date >= today) return 'Birth date must be in the past';
+      if (date.getFullYear() < 1900) return 'Invalid birth year';
       if (date.getFullYear() > today.getFullYear() - 13) 
         return 'Applicant must be at least 13 years old';
       return '';
   }
+};
+
+const handleInputChange = (e) => {
+  let { name, value } = e.target;
+  
+  // Auto-uppercase state, format SSN/phone
+  if (name === 'state') value = value.toUpperCase();
+  if (name === 'ssn') value = value.replace(/\\D/g, '');
+  if (name === 'phone') value = value.replace(/\\D/g, '');
+  
+  setFormData(prev => ({ ...prev, [name]: value }));
+  
+  // Real-time validation feedback
+  if (touched[name]) {
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
+    setValidationStatus(prev => ({
+      ...prev, [name]: error ? 'error' : 'success'
+    }));
+  }
 };`
     },
     {
-      id: 5,
+      id: 4,
       title: "Backend Implementation",
-      content: "Created a Node.js/Express server with production-ready error handling, rate limiting, and comprehensive logging. Focused on secure API integration and monitoring capabilities.",
+      content: "Created a Node.js/Express server with production-ready error handling, rate limiting, and comprehensive logging. Implemented secure API integration, monitoring capabilities, and reliable data transformation.",
       type: "code",
-      background: "gradient-6",
-      codeSnippet: `// Backend API with error handling
-app.post('/apply', async (req, res) => {
-  // Validate request data
-  const validation = validateApplication(applicant);
-  if (!validation.isValid) {
-    return res.status(400).json({
-      error: "Invalid application data",
-      details: validation.errors,
-      code: "VALIDATION_ERROR"
-    });
-  }
+      background: "gradient-5",
+      codeSnippet: `// Backend API - Alloy Integration & Error Handling
+function toAlloyPayload(applicant = {}) {
+  const addr = applicant.address || {};
+  const address_line_1 = addr.line1 ?? applicant.address1 ?? "";
+  const address_line_2 = addr.line2 ?? applicant.address2 ?? "";
+  const address_city = addr.city ?? applicant.city ?? "";
+  const address_state = addr.state ?? applicant.state ?? "";
+  const address_postal_code = addr.zip ?? applicant.zip ?? "";
+  const address_country_code = addr.country ?? applicant.country ?? "US";
+
+  const birth_date = applicant.birth_date ?? applicant.dob ?? "";
+  const formattedSsn = applicant.ssn ? applicant.ssn.replace(/[-\s]/g, '') : "";
+
+  return {
+    name_first: applicant.firstName,
+    name_last: applicant.lastName,
+    address_line_1,
+    address_line_2,
+    address_city,
+    address_state,
+    address_postal_code,
+    address_country_code,
+    social_security_number: formattedSsn,
+    email: applicant.email,
+    phone_number: applicant.phone || applicant.phoneNumber || "",
+    birth_date,
+  };
+}
+
+app.post("/apply", async (req, res) => {
+  const applicant = req.body;
+  const payload = toAlloyPayload(applicant);
+
+  const url = "https://sandbox.alloy.co/v1/evaluations";
+  const auth = {
+    username: process.env.ALLOY_WORKFLOW_TOKEN || "",
+    password: process.env.ALLOY_WORKFLOW_SECRET || "",
+  };
 
   try {
     const { data } = await axios.post(url, payload, {
@@ -148,87 +379,82 @@ app.post('/apply', async (req, res) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    const normalizedOutcome = normalizeOutcome(data?.summary?.outcome);
-    res.json({ outcome: normalizedOutcome, full: data });
+    const rawOutcome = data?.summary?.outcome;
+    const normalizedOutcome = normalizeOutcome(rawOutcome);
+    
+    res.json({
+      outcome: normalizedOutcome,
+      full: data,
+    });
   } catch (err) {
-    const errorResponse = handleAlloyError(err);
-    res.status(errorResponse.status).json({
-      error: errorResponse.error,
-      message: errorResponse.message,
-      code: errorResponse.code
+    const status = err?.response?.status || 500;
+    const msg = err?.message || "Unknown error";
+    
+    res.status(status).json({
+      error: "Failed to evaluate with Alloy",
+      details: err?.response?.data || msg,
     });
   }
 });`
     },
     {
-      id: 6,
-      title: "Code Quality & Best Practices",
-      subtitle: "Engineering standards and maintainability",
-      content: [
-        "📝 Comprehensive JSDoc documentation for all major functions",
-        "🧪 End-to-end testing with Playwright for complete coverage",
-        "🔒 Security-first development with input validation",
-        "⚡ Performance optimization and error handling",
-        "📱 Accessibility features and responsive design",
-        "🔄 Modular architecture with separation of concerns"
-      ],
-      type: "list",
-      background: "gradient-7"
-    },
-    {
-      id: 7,
+      id: 5,
       title: "Production Readiness",
-      subtitle: "Enterprise deployment considerations",
+      subtitle: "Deployment & Quality Assurance",
       content: [
-        "🔐 Security: Authentication, data encryption, API key management, audit logging",
-        "📊 Monitoring: Error tracking, performance monitoring, alert systems, health checks",
-        "📋 Compliance: SOC 2, PCI DSS, data retention policies, audit trails",
-        "⚡ Scalability: Load balancing, rate limiting, caching strategies, database optimization"
+        { icon: "security", text: "Security: Input validation, CORS protection, environment variable management, and data sanitization" },
+        { icon: "monitoring", text: "Monitoring: Error logging, server status endpoints, and comprehensive debugging capabilities" },
+        { icon: "documentation", text: "Compliance: SSN validation, age verification, and regulatory data handling requirements" },
+        { icon: "testing", text: "Testing: Playwright E2E testing, unit testing, and comprehensive coverage of critical user paths" }
       ],
       type: "list",
-      background: "gradient-8"
+      background: "gradient-6"
     },
     {
-      id: 8,
-      title: "Testing Strategy",
-      subtitle: "Quality assurance approach",
-      content: [
-        "🧪 Playwright E2E Testing: Complete user journey validation",
-        "🔍 Unit Testing: Individual component and function testing",
-        "🔗 Integration Testing: API endpoint and data flow testing",
-        "📊 Test Coverage: Comprehensive coverage of critical user paths",
-        "🚀 Performance Testing: Load and stress testing scenarios",
-        "🔄 CI/CD Integration: Automated testing in deployment pipeline"
-      ],
-      type: "list",
-      background: "gradient-9"
-    },
-    {
-      id: 9,
-      title: "Live Demo",
-      content: "Interactive demonstration of the complete implementation, showing real-time API integration, error handling, and user experience.",
-      type: "live-demo",
-      background: "gradient-10"
+      id: 6,
+      title: "Try the Demo",
+      subtitle: "Interactive API Integration",
+      content: "",
+      type: "demo-redirect",
+      background: "gradient-7"
     }
   ];
 
   /**
-   * Navigation functions for slide progression
+   * Enhanced navigation functions with direction tracking
    */
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
+      setSlideDirection('next');
       setCurrentSlide(currentSlide + 1);
     }
   };
 
   const prevSlide = () => {
     if (currentSlide > 0) {
+      setSlideDirection('prev');
       setCurrentSlide(currentSlide - 1);
     }
   };
 
   const goToSlide = (slideIndex) => {
+    setSlideDirection(slideIndex > currentSlide ? 'next' : 'prev');
     setCurrentSlide(slideIndex);
+  };
+
+  /**
+   * Smooth transition to landing page demo
+   */
+  const handleRedirectToDemo = () => {
+    // Exit presentation mode and redirect to landing page
+    onExit();
+    // Optionally scroll to demo section if needed
+    setTimeout(() => {
+      const demoSection = document.getElementById('demo-section');
+      if (demoSection) {
+        demoSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   /**
@@ -287,96 +513,6 @@ app.post('/apply', async (req, res) => {
   };
 
   /**
-   * Enhanced form submission with comprehensive error handling
-   * Demonstrates production-ready error scenarios and user feedback
-   */
-  const handleFormSubmit = async (formData) => {
-    setIsSubmitting(true);
-    setDemoError(null);
-    setDemoOutcome(null);
-
-    // Transform flat form data to nested address structure
-    const payload = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      address: {
-        line1: formData.address1,
-        line2: formData.address2,
-        city: formData.city,
-        state: formData.state,
-        zip: formData.zip,
-        country: formData.country
-      },
-      ssn: formData.ssn,
-      email: formData.email,
-      phone: formData.phone,
-      birth_date: formData.birth_date
-    };
-
-    try {
-      // Try port 5001 first (since 5000 is used by macOS), fallback to 5000
-      let response;
-      try {
-        response = await fetch('http://localhost:5001/apply', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
-        });
-      } catch (portError) {
-        // If port 5001 fails, try port 5000
-        response = await fetch('http://localhost:5000/apply', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
-        });
-      }
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log(`✅ Application processed: ${data.outcome}`);
-        setDemoOutcome(data.outcome);
-      } else {
-        console.error('❌ Application failed:', data.error);
-        
-        // Enhanced error handling with user-friendly messages
-        let errorMessage = 'An error occurred while processing your application';
-        
-        if (data.code === 'AUTHENTICATION_ERROR') {
-          errorMessage = 'Authentication failed. Please check your API credentials.';
-        } else if (data.code === 'RATE_LIMIT_EXCEEDED') {
-          errorMessage = 'Too many requests. Please wait a moment and try again.';
-        } else if (data.code === 'VALIDATION_ERROR') {
-          errorMessage = 'Please check your information and try again.';
-        } else if (data.code === 'SERVICE_UNAVAILABLE') {
-          errorMessage = 'Service temporarily unavailable. Please try again later.';
-        } else if (data.message) {
-          errorMessage = data.message;
-        }
-        
-        setDemoError(errorMessage);
-      }
-    } catch (err) {
-      console.error('❌ Connection failed:', err.message);
-      
-      // Enhanced network error handling
-      if (err.name === 'TypeError' && err.message.includes('fetch')) {
-        setDemoError('Unable to connect to the server. Please check your connection and try again.');
-      } else if (err.name === 'AbortError') {
-        setDemoError('Request timed out. Please try again.');
-      } else {
-        setDemoError('Network error occurred. Please try again.');
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  /**
    * Renders slide content based on slide type
    * 
    * @param {Object} slide - Slide configuration object
@@ -409,7 +545,14 @@ app.post('/apply', async (req, res) => {
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <ul>
               {slide.content.map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index}>
+                  <div className="list-item-content">
+                    <div className="list-item-icon">
+                      <ProfessionalIcon type={item.icon} className="professional-icon" />
+                    </div>
+                    <span className="list-item-text">{item.text}</span>
+                  </div>
+                </li>
               ))}
             </ul>
           </div>
@@ -422,7 +565,12 @@ app.post('/apply', async (req, res) => {
             <div className="tech-grid">
               {slide.content.map((tech, index) => (
                 <div key={index} className="tech-item">
-                  <span>{tech}</span>
+                  <div className="tech-item-content">
+                    <div className="tech-item-icon">
+                      <ProfessionalIcon type={tech.icon} className="professional-icon" />
+                    </div>
+                    <span className="tech-item-text">{tech.text}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -435,77 +583,75 @@ app.post('/apply', async (req, res) => {
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p className="code-description">{slide.content}</p>
-            <div className="code-container">
-              <pre className="code-snippet">
-                <code>{slide.codeSnippet}</code>
-              </pre>
-            </div>
+            <CodeHighlight 
+              code={slide.codeSnippet}
+              language="javascript"
+            />
           </div>
         );
       
-      case 'live-demo':
+      case 'demo-redirect':
         return (
-          <div className="slide-live-demo">
+          <div className="slide-demo-redirect">
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p>{slide.content}</p>
-            <div className="demo-container">
-              <div className="demo-header">
-                <span className="demo-label">Interactive Technical Demo</span>
-                <div className="demo-controls">
-                  <button 
-                    className="demo-btn"
-                    onClick={() => {
-                      setDemoOutcome(null);
-                      setDemoError(null);
-                    }}
-                  >
-                    Reset Demo
-                  </button>
+            
+            <div className="demo-redirect-container">
+              <div className="tech-showcase">
+                <div className="tech-showcase-header">
+                  <span className="showcase-label">Key Features</span>
+                </div>
+                
+                <div className="tech-showcase-grid">
+                  <div className="tech-showcase-item">
+                    <div className="tech-icon">
+                      <ProfessionalIcon type="api" className="professional-icon" />
+                    </div>
+                    <h4>API Integration</h4>
+                    <p>Secure authentication and data handling</p>
+                  </div>
+                  
+                  <div className="tech-showcase-item">
+                    <div className="tech-icon">
+                      <ProfessionalIcon type="shield" className="professional-icon" />
+                    </div>
+                    <h4>Form Validation</h4>
+                    <p>Real-time input validation and error feedback</p>
+                  </div>
+                  
+                  <div className="tech-showcase-item">
+                    <div className="tech-icon">
+                      <ProfessionalIcon type="error" className="professional-icon" />
+                    </div>
+                    <h4>Error Handling</h4>
+                    <p>Comprehensive error management and user feedback</p>
+                  </div>
+                  
+                  <div className="tech-showcase-item">
+                    <div className="tech-icon">
+                      <ProfessionalIcon type="microscope" className="professional-icon" />
+                    </div>
+                    <h4>Testing</h4>
+                    <p>End-to-end testing with Playwright</p>
+                  </div>
                 </div>
               </div>
-              <div className="demo-content">
-                {demoError && (
-                  <div className="demo-error">
-                    <strong>Error:</strong> {demoError}
-                  </div>
-                )}
-                
-                {demoOutcome ? (
-                  <div className="demo-outcome">
-                    <h3>Application Result</h3>
-                    <div className={`outcome-display outcome-${demoOutcome.toLowerCase()}`}>
-                      <div className="outcome-icon">
-                        {demoOutcome === 'Approved' ? '✅' : 
-                         demoOutcome === 'Manual Review' ? '🔍' : '❌'}
-                      </div>
-                      <h4>
-                        {demoOutcome === 'Approved' ? 'Application Approved!' :
-                         demoOutcome === 'Manual Review' ? 'Under Review' :
-                         'Application Not Approved'}
-                      </h4>
-                      <p>
-                        {demoOutcome === 'Approved' ? 'Success! Customer has successfully created an account' :
-                         demoOutcome === 'Manual Review' ? 'Thanks for submitting your application, we\'ll be in touch shortly' :
-                         'Sorry, your application was not successful'}
-                      </p>
-                    </div>
-                    <button 
-                      className="demo-btn"
-                      onClick={() => {
-                        setDemoOutcome(null);
-                        setDemoError(null);
-                      }}
-                    >
-                      Try Another Application
-                    </button>
-                  </div>
-                ) : (
-                  <ApplicationForm 
-                    onSubmit={handleFormSubmit}
-                    isSubmitting={isSubmitting}
-                  />
-                )}
+              
+              <div className="redirect-section">
+                <div className="redirect-content">
+                  <h4>Ready to try it?</h4>
+                  
+                  <button 
+                    className="redirect-btn"
+                    onClick={handleRedirectToDemo}
+                  >
+                    <span className="btn-icon">
+                      <ProfessionalIcon type="arrow" className="professional-icon" />
+                    </span>
+                    <span className="btn-text">Go to Demo</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -584,14 +730,7 @@ app.post('/apply', async (req, res) => {
         </>
       )}
 
-      {/* Enhanced Keyboard Shortcuts Help */}
-      <div className="keyboard-help">
-        <span>← → Navigate</span>
-        <span>Space Next</span>
-        <span>Home/End Jump</span>
-        <span>ESC Exit</span>
-        <span>F11 Fullscreen</span>
-      </div>
+
     </div>
   );
 };

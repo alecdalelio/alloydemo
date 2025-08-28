@@ -30,8 +30,8 @@ test.describe('Alloy Demo Interactive Mode', () => {
         await page.waitForTimeout(500);
       }
       
-      // Should be on the last slide (live demo)
-      await expect(page.locator('.slide-live-demo')).toBeVisible();
+      // Should be on the last slide (demo redirect)
+      await expect(page.locator('.slide-demo-redirect')).toBeVisible();
       
       // Check slide counter shows 10/10
       await expect(page.locator('.slide-counter:has-text("10 / 10")')).toBeVisible();
@@ -98,26 +98,32 @@ test.describe('Alloy Demo Interactive Mode', () => {
       await expect(page.locator('li:has-text("Scalability:")')).toBeVisible();
     });
 
-    test('should show technical architecture slide', async ({ page }) => {
+    test('should show testing strategy slide', async ({ page }) => {
+      // Wait for the page to load and the button to be stable
+      await page.waitForLoadState('networkidle');
+      await page.waitForSelector('button:has-text("View Demo")', { state: 'visible' });
       await page.click('button:has-text("View Demo")');
       
-      // Navigate to technical architecture slide (slide 9)
+      // Navigate to testing strategy slide (slide 9)
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowRight');
         await page.waitForTimeout(300);
       }
       
-      await expect(page.locator('.slide-list h2:has-text("Technical Architecture & Decisions")')).toBeVisible();
-      await expect(page.locator('.slide-list h3:has-text("Strategic technology choices")')).toBeVisible();
+      await expect(page.locator('.slide-list h2:has-text("Testing Strategy")')).toBeVisible();
+      await expect(page.locator('.slide-list h3:has-text("Quality Assurance Excellence")')).toBeVisible();
       
-      // Check for technical decisions
-      await expect(page.locator('li:has-text("React + Express:")')).toBeVisible();
-      await expect(page.locator('li:has-text("State Management:")')).toBeVisible();
-      await expect(page.locator('li:has-text("API Design:")')).toBeVisible();
-      await expect(page.locator('li:has-text("Testing Strategy:")')).toBeVisible();
+      // Check for testing strategies
+      await expect(page.locator('li:has-text("Playwright E2E Testing:")')).toBeVisible();
+      await expect(page.locator('li:has-text("Unit Testing:")')).toBeVisible();
+      await expect(page.locator('li:has-text("Integration Testing:")')).toBeVisible();
+      await expect(page.locator('li:has-text("Test Coverage:")')).toBeVisible();
     });
 
     test('should show code snippets properly', async ({ page }) => {
+      // Wait for the page to load and the button to be stable
+      await page.waitForLoadState('networkidle');
+      await page.waitForSelector('button:has-text("View Demo")', { state: 'visible' });
       await page.click('button:has-text("View Demo")');
       
       // Navigate to frontend code slide (slide 5)
@@ -137,6 +143,9 @@ test.describe('Alloy Demo Interactive Mode', () => {
     });
 
     test('should support Home/End keyboard navigation', async ({ page }) => {
+      // Wait for the page to load and the button to be stable
+      await page.waitForLoadState('networkidle');
+      await page.waitForSelector('button:has-text("View Demo")', { state: 'visible' });
       await page.click('button:has-text("View Demo")');
       
       // Navigate to middle slide
@@ -161,6 +170,9 @@ test.describe('Alloy Demo Interactive Mode', () => {
     test.use({ viewport: { width: 768, height: 1024 } });
 
     test('should be responsive on tablet', async ({ page }) => {
+      // Wait for the page to load and the button to be stable
+      await page.waitForLoadState('networkidle');
+      await page.waitForSelector('button:has-text("View Demo")', { state: 'visible' });
       await page.click('button:has-text("View Demo")');
       
       // Check that content is properly sized
@@ -182,6 +194,9 @@ test.describe('Alloy Demo Interactive Mode', () => {
     test.use({ viewport: { width: 375, height: 667 } });
 
     test('should be responsive on mobile', async ({ page }) => {
+      // Wait for the page to load and the button to be stable
+      await page.waitForLoadState('networkidle');
+      await page.waitForSelector('button:has-text("View Demo")', { state: 'visible' });
       await page.click('button:has-text("View Demo")');
       
       // Check that navigation controls are properly sized
@@ -194,8 +209,8 @@ test.describe('Alloy Demo Interactive Mode', () => {
         await page.waitForTimeout(300);
       }
       
-      const demoContainer = page.locator('.demo-container');
-      await expect(demoContainer).toBeVisible();
+      const demoRedirectContainer = page.locator('.demo-redirect-container');
+      await expect(demoRedirectContainer).toBeVisible();
     });
 
     test('should handle landscape orientation', async ({ page }) => {
@@ -207,106 +222,106 @@ test.describe('Alloy Demo Interactive Mode', () => {
     });
   });
 
-  test.describe('Live Demo Functionality', () => {
+  test.describe('Demo Redirect Functionality', () => {
     test.use({ viewport: { width: 1920, height: 1080 } });
 
-    test('should show live application form in demo', async ({ page }) => {
+    test('should show demo redirect slide with proper layout', async ({ page }) => {
       await page.click('button:has-text("View Demo")');
       
-      // Navigate to live demo slide (slide 10)
+      // Navigate to demo redirect slide (slide 10)
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowRight');
         await page.waitForTimeout(300);
       }
       
-      // Check that form is visible
-      await expect(page.locator('.demo-content .application-form')).toBeVisible();
-      await expect(page.locator('input[name="firstName"]')).toBeVisible();
+      // Check that demo redirect slide is visible
+      await expect(page.locator('.slide-demo-redirect')).toBeVisible();
+      await expect(page.locator('h2:has-text("Try the Demo")')).toBeVisible();
+      await expect(page.locator('h3:has-text("Interactive API Integration")')).toBeVisible();
     });
 
-    test('should handle form submission in demo', async ({ page }) => {
+    test('should display technical capabilities grid', async ({ page }) => {
       await page.click('button:has-text("View Demo")');
       
-      // Navigate to live demo slide (slide 10)
+      // Navigate to demo redirect slide (slide 10)
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowRight');
         await page.waitForTimeout(300);
       }
       
-      // Fill out form with approved test data
-      await page.fill('input[name="firstName"]', 'John');
-      await page.fill('input[name="lastName"]', 'Smith');
-      await page.fill('input[name="email"]', 'john.smith@example.com');
-      await page.fill('input[name="phone"]', '1234567890');
-      await page.fill('input[name="ssn"]', '123456789');
-      await page.fill('input[name="birth_date"]', '1990-01-01');
-      await page.fill('input[name="address1"]', '123 Main St');
-      await page.fill('input[name="city"]', 'New York');
-      await page.fill('input[name="state"]', 'NY');
-      await page.fill('input[name="zip"]', '10001');
+      // Check technical showcase container
+      await expect(page.locator('.tech-showcase')).toBeVisible();
+      await expect(page.locator('.showcase-label:has-text("Key Features")')).toBeVisible();
       
-      // Submit form
-      await page.click('button:has-text("Submit Application")');
-      
-      // Check for outcome display
-      await expect(page.locator('.demo-outcome')).toBeVisible();
+      // Check all four technical capability items
+      await expect(page.locator('.tech-showcase-item')).toHaveCount(4);
+      await expect(page.locator('.tech-showcase-item:has-text("API Integration")')).toBeVisible();
+      await expect(page.locator('.tech-showcase-item:has-text("Form Validation")')).toBeVisible();
+      await expect(page.locator('.tech-showcase-item:has-text("Error Handling")')).toBeVisible();
+      await expect(page.locator('.tech-showcase-item:has-text("Testing")')).toBeVisible();
     });
 
-    test('should test manual review scenario', async ({ page }) => {
+    test('should display redirect section with call-to-action', async ({ page }) => {
       await page.click('button:has-text("View Demo")');
       
-      // Navigate to live demo slide (slide 10)
+      // Navigate to demo redirect slide (slide 10)
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowRight');
         await page.waitForTimeout(300);
       }
       
-      // Fill out form with manual review test data
-      await page.fill('input[name="firstName"]', 'Jessica');
-      await page.fill('input[name="lastName"]', 'Review');
-      await page.fill('input[name="email"]', 'jessica.review@example.com');
-      await page.fill('input[name="phone"]', '1234567890');
-      await page.fill('input[name="ssn"]', '123456789');
-      await page.fill('input[name="birth_date"]', '1990-01-01');
-      await page.fill('input[name="address1"]', '123 Main St');
-      await page.fill('input[name="city"]', 'New York');
-      await page.fill('input[name="state"]', 'NY');
-      await page.fill('input[name="zip"]', '10001');
-      
-      // Submit form
-      await page.click('button:has-text("Submit Application")');
-      
-      // Check for manual review outcome
-      await expect(page.locator('.outcome-display.outcome-manual-review')).toBeVisible();
+      // Check redirect section
+      await expect(page.locator('.redirect-section')).toBeVisible();
+      await expect(page.locator('.redirect-content h4:has-text("Ready to try it?")')).toBeVisible();
+      await expect(page.locator('.redirect-btn:has-text("Go to Demo")')).toBeVisible();
     });
 
-    test('should test denied scenario', async ({ page }) => {
+    test('should handle redirect button click', async ({ page }) => {
       await page.click('button:has-text("View Demo")');
       
-      // Navigate to live demo slide (slide 10)
+      // Navigate to demo redirect slide (slide 10)
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowRight');
         await page.waitForTimeout(300);
       }
       
-      // Fill out form with denied test data
-      await page.fill('input[name="firstName"]', 'John');
-      await page.fill('input[name="lastName"]', 'Deny');
-      await page.fill('input[name="email"]', 'john.deny@example.com');
-      await page.fill('input[name="phone"]', '1234567890');
-      await page.fill('input[name="ssn"]', '123456789');
-      await page.fill('input[name="birth_date"]', '1990-01-01');
-      await page.fill('input[name="address1"]', '123 Main St');
-      await page.fill('input[name="city"]', 'New York');
-      await page.fill('input[name="state"]', 'NY');
-      await page.fill('input[name="zip"]', '10001');
+      // Click the redirect button
+      await page.click('.redirect-btn');
       
-      // Submit form
-      await page.click('button:has-text("Submit Application")');
-      
-      // Check for denied outcome
-      await expect(page.locator('.outcome-display.outcome-deny')).toBeVisible();
+      // Should exit presentation mode
+      await expect(page.locator('.presentation-mode')).not.toBeVisible();
+      await expect(page.locator('button:has-text("View Demo")')).toBeVisible();
     });
+
+    test('should fit content within viewport without overflow', async ({ page }) => {
+      await page.click('button:has-text("View Demo")');
+      
+      // Navigate to demo redirect slide (slide 10)
+      for (let i = 0; i < 9; i++) {
+        await page.keyboard.press('ArrowRight');
+        await page.waitForTimeout(300);
+      }
+      
+      // Get viewport dimensions
+      const viewport = page.viewportSize();
+      
+      // Check that the demo redirect container fits within viewport
+      const container = page.locator('.demo-redirect-container');
+      const containerBox = await container.boundingBox();
+      
+      // Container should be within viewport bounds
+      expect(containerBox.x).toBeGreaterThanOrEqual(0);
+      expect(containerBox.y).toBeGreaterThanOrEqual(0);
+      expect(containerBox.x + containerBox.width).toBeLessThanOrEqual(viewport.width);
+      expect(containerBox.y + containerBox.height).toBeLessThanOrEqual(viewport.height);
+      
+      // Check that all content is visible
+      await expect(page.locator('.tech-showcase')).toBeVisible();
+      await expect(page.locator('.redirect-section')).toBeVisible();
+      await expect(page.locator('.redirect-btn')).toBeVisible();
+    });
+
+
   });
 
   test.describe('Presentation Controls', () => {
