@@ -28,8 +28,8 @@ This demo application showcases a bank account opening process with real-time fr
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/alloydemo.git
-   cd alloydemo
+   git clone https://github.com/alecdalelio/alloy-demo.git
+   cd alloy-demo
    ```
 
 2. **Install dependencies**
@@ -69,12 +69,20 @@ This demo application showcases a bank account opening process with real-time fr
    npm run dev
    
    # Or start them separately:
-   npm run start:backend    # Backend on port 5001
+   npm run start:backend    # Backend on port 5000 or 5001 (auto-detected)
    npm run start:frontend   # Frontend on port 3000
    ```
 
 5. **Open your browser**
    Navigate to `http://localhost:3000`
+
+### Backend endpoint used by the frontend
+
+By default, the frontend submits applications to a hosted backend:
+
+- `https://alloydemo.onrender.com/apply`
+
+To use a local backend for development, update the API URL in `frontend/src/App.js` and ensure CORS `FRONTEND_ORIGIN` in `backend/.env` matches your frontend URL.
 
 ## 🛠️ Technical Architecture
 
@@ -96,8 +104,8 @@ This demo application showcases a bank account opening process with real-time fr
 - **CORS Configuration**: Properly configured for development
 - **Field Mapping**: Converts frontend data to Alloy's API format
 - **Outcome Normalization**: Maps Alloy responses to frontend expectations
-- **Error Handling**: Graceful degradation with demo mode fallback
-- **Testing**: Comprehensive Playwright test suite
+- **Error Handling**: Clear error responses (no automatic demo-mode fallback)
+- **Testing**: Playwright end-to-end smoke tests
 
 ## 📋 API Integration Details
 
@@ -231,7 +239,7 @@ To test the different outcome scenarios:
    ```
    ALLOY_WORKFLOW_TOKEN=your_workflow_token
    ALLOY_WORKFLOW_SECRET=your_workflow_secret
-   FRONTEND_ORIGIN=https://your-frontend-app.onrender.com
+   FRONTEND_ORIGIN=https://alloydemo.vercel.app
    ```
 
 #### Frontend Deployment
@@ -242,7 +250,7 @@ To test the different outcome scenarios:
 
 2. **Environment Variables**
    ```
-   REACT_APP_API_URL=https://your-backend-app.onrender.com
+   REACT_APP_API_URL=https://alloydemo.onrender.com
    ```
 
 ### Fly.io Deployment
@@ -295,22 +303,10 @@ fly auth login
 
 3. **Environment Variables**:
    ```
-   REACT_APP_API_URL=https://your-backend-url.com
+   REACT_APP_API_URL=https://alloydemo.onrender.com
    ```
 
-#### Backend Deployment
-1. **Create Vercel project**
-2. **Set build settings**:
-   - Framework Preset: Node.js
-   - Build Command: `npm install`
-   - Output Directory: `backend`
-
-3. **Environment Variables**:
-   ```
-   ALLOY_WORKFLOW_TOKEN=your_workflow_token
-   ALLOY_WORKFLOW_SECRET=your_workflow_secret
-   FRONTEND_ORIGIN=https://your-frontend-app.vercel.app
-   ```
+Note: The backend is deployed to Render (`https://alloydemo.onrender.com`). Vercel hosts the frontend only, per `vercel.json`.
 
 ## 🚨 Troubleshooting
 
@@ -319,7 +315,6 @@ fly auth login
 **Port Conflicts**
 - Backend automatically detects available port (5000 preferred, falls back to 5001)
 - Frontend runs on port 3000
-- Frontend automatically tries port 5001 first, then falls back to 5000
 - Use `lsof -i :5000` or `lsof -i :5001` to check port availability
 
 **CORS Errors**
@@ -410,7 +405,7 @@ This application demonstrates a complete integration with Alloy's API:
 ### 🎯 **Advanced Features**
 
 - 🚀 **Interactive Demo Mode**: Professional showcase of integration capabilities
-- 🧪 **Comprehensive Testing**: Playwright test suite with 100% coverage
+- 🧪 **E2E Testing**: Playwright tests for key user flows
 - 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile
 - 🎨 **Modern UI/UX**: Professional banking interface with smooth animations
 - 🔧 **Developer Experience**: Hot reload, auto-port detection, comprehensive logging
@@ -428,7 +423,6 @@ This application demonstrates a complete integration with Alloy's API:
 - ✅ Required field validation with visual indicators
 
 **API Integration**
-- ✅ GET request to `https://sandbox.alloy.co/v1/parameters/` for field format
 - ✅ POST request to `https://sandbox.alloy.co/v1/evaluations/` for evaluation
 - ✅ Basic authentication with `workflow_token:workflow_secret`
 - ✅ Proper error handling with informative messages
