@@ -197,7 +197,7 @@ app.post("/apply", async (req, res) => {
 
     res.status(status).json({
       error: "Failed to evaluate with Alloy",
-      details: err?.response?.data || msg,
+      details: 'Please try again later',
     });
   }
 });

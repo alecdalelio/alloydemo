@@ -240,183 +240,190 @@ const PresentationMode = ({ onExit }) => {
    * Each slide demonstrates different aspects of the technical implementation
    */
   const slides = [
+    // Slide 1 – Intro & Goal
     {
       id: 0,
       title: "Alloy Integration Demo",
-      subtitle: "Technical Implementation & Business Value",
-      content: "API integration with comprehensive validation, testing, and production-ready deployment. Demonstrates modern development practices and technical implementation.",
-      type: "title",
+      subtitle: "Demo: integrating Alloy to streamline onboarding, minimize fraud, and reduce manual reviews",
+      content: [
+        { icon: "target", text: "Collect → validate → proxy to Alloy → render outcome" },
+        { icon: "architecture", text: "Outcomes: Approved, Deny, Manual Review" },
+        { icon: "alert", text: "Covers gotchas, error handling, and production considerations" }
+      ],
+      hook: "Assignment goal: build a working integration that validates, submits, and displays results.",
+      type: "list",
       background: "gradient-1"
     },
+    // Slide 2 – Architecture
     {
       id: 1,
-      title: "Technical Architecture & Standards",
-      subtitle: "Design Decisions & Implementation Approach",
+      title: "Architecture",
+      subtitle: "React → Express proxy → Alloy",
       content: [
-        { icon: "architecture", text: "React.js component architecture with modular design patterns and maintainable code structure" },
-        { icon: "lightning", text: "Express.js API gateway with middleware ecosystem, rate limiting, and comprehensive error handling" },
-        { icon: "shield", text: "Security-first approach with CORS protection, input validation, and environment-based credential management" },
-        { icon: "test", text: "End-to-end testing strategy with Playwright for complete user journey coverage and regression testing" }
+        { icon: "lock", text: "Proxy hides secrets (Basic Auth) and transforms schema" },
+        { icon: "validation", text: "Frontend validation reduces bad requests" },
+        { icon: "test", text: "Sandbox personas trigger deterministic outcomes" }
       ],
+      hook: "Simple, secure architecture: client collects, proxy transforms, Alloy decides.",
       type: "list",
       background: "gradient-2"
     },
+    // Slide 3 – Frontend: Validation & UX (trimmed code)
     {
       id: 2,
-      title: "Implementation Challenges",
-      subtitle: "Problem Solving & Technical Solutions",
-      content: [
-        { icon: "lock", text: "Secure API credential management with environment variables and production-ready authentication" },
-        { icon: "validation", text: "Real-time form validation with immediate user feedback and comprehensive error resolution" },
-        { icon: "transform", text: "Data transformation pipeline between frontend and Alloy API formats with validation and sanitization" },
-        { icon: "normalize", text: "Outcome normalization and consistent user experience across all API response states" }
-      ],
-      type: "list",
-      background: "gradient-3"
-    },
-    {
-      id: 3,
-      title: "Frontend Implementation",
-      content: "Built a React application with comprehensive form validation, accessibility features, and professional error handling. Implemented modern development practices, performance optimization, and user experience with real-time validation feedback.",
+      title: "Frontend: Validation & UX",
+      subtitle: "Prevent invalid submissions",
+      content: "",
       type: "code",
       background: "gradient-4",
-      codeSnippet: `// ApplicationForm.jsx - Real-time Validation & State Management
+      codeSnippet: `// Critical: SSN 9 digits, no dashes; block common invalids
+// Critical: DOB ISO YYYY-MM-DD; past date; age >= 13
 const validateField = (name, value) => {
   switch (name) {
-    case 'ssn':
-      if (!value.trim()) return 'SSN is required';
-      const cleanSsn = value.replace(/[-\s]/g, '');
-      if (!patterns.ssn.test(cleanSsn)) 
-        return 'SSN must be 9 digits (no dashes)';
-      if (cleanSsn === '000000000' || cleanSsn === '111111111') 
-        return 'SSN cannot be all zeros or ones';
+    case 'ssn': {
+      const clean = (value || '').replace(/\D/g, '');
+      if (!clean) return 'SSN is required';
+      if (!/^\d{9}$/.test(clean)) return 'SSN must be 9 digits (no dashes)';
+      if (clean === '000000000' || clean === '111111111') return 'Invalid SSN';
       return '';
-    
-    case 'birth_date':
-      if (!value.trim()) return 'Date of birth is required';
-      if (!patterns.birth_date.test(value)) 
-        return 'Date must be YYYY-MM-DD format';
-      const date = new Date(value);
+    }
+    case 'birth_date': {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return 'Date must be YYYY-MM-DD';
+      const d = new Date(value);
       const today = new Date();
-      if (isNaN(date.getTime())) return 'Invalid date';
-      if (date >= today) return 'Birth date must be in the past';
-      if (date.getFullYear() < 1900) return 'Invalid birth year';
-      if (date.getFullYear() > today.getFullYear() - 13) 
-        return 'Applicant must be at least 13 years old';
+      if (isNaN(d)) return 'Invalid date';
+      if (d >= today) return 'Birth date must be in the past';
+      if (d.getFullYear() > today.getFullYear() - 13) return 'Must be 13+';
       return '';
-  }
-};
-
-const handleInputChange = (e) => {
-  let { name, value } = e.target;
-  
-  // Auto-uppercase state, format SSN/phone
-  if (name === 'state') value = value.toUpperCase();
-  if (name === 'ssn') value = value.replace(/\\D/g, '');
-  if (name === 'phone') value = value.replace(/\\D/g, '');
-  
-  setFormData(prev => ({ ...prev, [name]: value }));
-  
-  // Real-time validation feedback
-  if (touched[name]) {
-    const error = validateField(name, value);
-    setErrors(prev => ({ ...prev, [name]: error }));
-    setValidationStatus(prev => ({
-      ...prev, [name]: error ? 'error' : 'success'
-    }));
+    }
+    // …
   }
 };`
+      ,
+      content: "SSN 9 digits only; DOB ISO past 13+; uppercase states; inline errors.",
+      hook: "Input validation avoids unnecessary Alloy rejections and manual reviews."
     },
+    // Slide 4 – Backend: Data Transformation (trimmed code)
+    {
+      id: 3,
+      title: "Backend: Data Transformation",
+      subtitle: "Match Alloy’s schema",
+      content: "",
+      type: "code",
+      background: "gradient-6",
+      codeSnippet: `function toAlloyPayload(a = {}) {
+  // Critical: field renames + normalization.
+  const addr = a.address || {};
+  return {
+    name_first: a.firstName,
+    name_last: a.lastName,
+    social_security_number: (a.ssn || '').replace(/\D/g, ''),
+    phone_number: a.phone,
+    email: a.email,
+    birth_date: a.birth_date,
+    address_line_1: addr.line1 || a.address1,
+    address_line_2: addr.line2 || a.address2,
+    address_city: addr.city || a.city,
+    address_state: addr.state || a.state,
+    address_postal_code: addr.zip || a.zip,
+    address_country_code: addr.country || a.country,
+  };
+}`
+      ,
+      hook: "Transform once at the edge to keep clients consistent and safe."
+    },
+    // Slide 5 – API Integration & Error Handling (trimmed code)
     {
       id: 4,
-      title: "Backend Implementation",
-      content: "Created a Node.js/Express server with production-ready error handling, rate limiting, and comprehensive logging. Implemented secure API integration, monitoring capabilities, and reliable data transformation.",
+      title: "API Integration",
+      subtitle: "Authentication, timeouts, errors",
+      content: "",
       type: "code",
-      background: "gradient-5",
-      codeSnippet: `// Backend API - Alloy Integration & Error Handling
-function toAlloyPayload(applicant = {}) {
-  const addr = applicant.address || {};
-  const address_line_1 = addr.line1 ?? applicant.address1 ?? "";
-  const address_line_2 = addr.line2 ?? applicant.address2 ?? "";
-  const address_city = addr.city ?? applicant.city ?? "";
-  const address_state = addr.state ?? applicant.state ?? "";
-  const address_postal_code = addr.zip ?? applicant.zip ?? "";
-  const address_country_code = addr.country ?? applicant.country ?? "US";
-
-  const birth_date = applicant.birth_date ?? applicant.dob ?? "";
-  const formattedSsn = applicant.ssn ? applicant.ssn.replace(/[-\s]/g, '') : "";
-
-  return {
-    name_first: applicant.firstName,
-    name_last: applicant.lastName,
-    address_line_1,
-    address_line_2,
-    address_city,
-    address_state,
-    address_postal_code,
-    address_country_code,
-    social_security_number: formattedSsn,
-    email: applicant.email,
-    phone_number: applicant.phone || applicant.phoneNumber || "",
-    birth_date,
-  };
-}
-
-app.post("/apply", async (req, res) => {
-  const applicant = req.body;
-  const payload = toAlloyPayload(applicant);
-
-  const url = "https://sandbox.alloy.co/v1/evaluations";
+      background: "gradient-7",
+      codeSnippet: `app.post('/apply', async (req, res) => {
+  const payload = toAlloyPayload(req.body);
   const auth = {
-    username: process.env.ALLOY_WORKFLOW_TOKEN || "",
-    password: process.env.ALLOY_WORKFLOW_SECRET || "",
-  };
-
+    username: process.env.ALLOY_WORKFLOW_TOKEN,
+    password: process.env.ALLOY_WORKFLOW_SECRET,
+  }; // Basic Auth (env only)
   try {
     const { data } = await axios.post(url, payload, {
       auth,
-      timeout: 15000, // 15s network timeout
-      headers: { "Content-Type": "application/json" },
+      timeout: 15000, // 15s timeout
+      headers: { 'Content-Type': 'application/json' },
     });
-
-    const rawOutcome = data?.summary?.outcome;
-    const normalizedOutcome = normalizeOutcome(rawOutcome);
-    
-    res.json({
-      outcome: normalizedOutcome,
-      full: data,
-    });
+    res.json({ outcome: normalizeOutcome(data?.summary?.outcome) });
   } catch (err) {
     const status = err?.response?.status || 500;
-    const msg = err?.message || "Unknown error";
-    
     res.status(status).json({
-      error: "Failed to evaluate with Alloy",
-      details: err?.response?.data || msg,
+      error: 'Failed to evaluate with Alloy',
+      details: 'Please try again later', // sanitized; never log PII
     });
   }
 });`
+      ,
+      hook: "Critical integration point: handle auth, timeouts, and safe errors."
     },
+    // Slide 6 – Outcome Normalization (trimmed code)
     {
       id: 5,
-      title: "Production Readiness",
-      subtitle: "Deployment & Quality Assurance",
-      content: [
-        { icon: "security", text: "Security: Input validation, CORS protection, environment variable management, and data sanitization" },
-        { icon: "monitoring", text: "Monitoring: Error logging, server status endpoints, and comprehensive debugging capabilities" },
-        { icon: "documentation", text: "Compliance: SSN validation, age verification, and regulatory data handling requirements" },
-        { icon: "testing", text: "Testing: Playwright E2E testing, unit testing, and comprehensive coverage of critical user paths" }
-      ],
-      type: "list",
-      background: "gradient-6"
+      title: "Outcome Normalization",
+      subtitle: "Consistent UI states",
+      content: "",
+      type: "code",
+      background: "gradient-8",
+      codeSnippet: `function normalizeOutcome(o) {
+  if (!o) return 'Unknown';
+  switch ((o || '').toLowerCase()) {
+    case 'approved': return 'Approved';
+    case 'deny':
+    case 'denied': return 'Deny';
+    case 'manual review':
+    case 'manual_review': return 'Manual Review';
+    default: return o;
+  }
+}`
+      ,
+      hook: "Normalize Alloy responses to three clear outcomes."
     },
+    // Slide 7 – Demo Plan
     {
       id: 6,
-      title: "Try the Demo",
-      subtitle: "Interactive API Integration",
+      title: "Live Demo Plan",
+      subtitle: "Three personas + error case",
+      content: [
+        { icon: "chart", text: "Jessica Approve → green success (account opened)", style: { borderColor: 'var(--alloy-accent)' } },
+        { icon: "error", text: "Jessica Deny → red decline (compliance-safe message)", style: { borderColor: 'var(--alloy-error)' } },
+        { icon: "normalize", text: "Jessica Review → amber pending (under manual review)", style: { borderColor: 'var(--alloy-warning)' } },
+        { icon: "alert", text: "Invalid token → error fallback, safe logs", style: { borderColor: 'var(--alloy-primary-light)' } }
+      ],
+      hook: "Color-coded states make Alloy outcomes easy to see.",
+      type: "tech",
+      background: "gradient-3"
+    },
+    // Slide 8 – Production Roadmap
+    {
+      id: 7,
+      title: "Production Readiness",
+      subtitle: "Hardening for production",
+      content: [
+        { icon: "settings", text: "Rate limiting, retries, CSRF/CAPTCHA" },
+        { icon: "connection", text: "Webhooks for async review decisions" },
+        { icon: "monitoring", text: "Metrics: approval/review/deny rates, latency" },
+        { icon: "documentation", text: "Structured logging with PII redaction and retention policy" }
+      ],
+      hook: "Considerations for scaling in a banking environment.",
+      type: "list",
+      background: "gradient-9"
+    },
+    // Slide 9 – Wrap & CTA
+    {
+      id: 8,
+      title: "Wrap",
+      subtitle: "Proven integration, ready to scale",
       content: "",
       type: "demo-redirect",
-      background: "gradient-7"
+      background: "gradient-10"
     }
   ];
 
@@ -543,6 +550,7 @@ app.post("/apply", async (req, res) => {
           <div className="slide-list">
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
+            {slide.hook && <p className="code-description">{slide.hook}</p>}
             <ul>
               {slide.content.map((item, index) => (
                 <li key={index}>
@@ -562,11 +570,13 @@ app.post("/apply", async (req, res) => {
         return (
           <div className="slide-tech">
             <h2>{slide.title}</h2>
+            {slide.subtitle && <h3>{slide.subtitle}</h3>}
+            {slide.hook && <p className="code-description">{slide.hook}</p>}
             <div className="tech-grid">
               {slide.content.map((tech, index) => (
-                <div key={index} className="tech-item">
+                <div key={index} className="tech-item" style={tech.style}>
                   <div className="tech-item-content">
-                    <div className="tech-item-icon">
+                    <div className="tech-item-icon" style={tech.iconContainerStyle}>
                       <ProfessionalIcon type={tech.icon} className="professional-icon" />
                     </div>
                     <span className="tech-item-text">{tech.text}</span>
@@ -582,6 +592,7 @@ app.post("/apply", async (req, res) => {
           <div className="slide-code">
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
+            {slide.hook && <p className="code-description">{slide.hook}</p>}
             <p className="code-description">{slide.content}</p>
             <CodeHighlight 
               code={slide.codeSnippet}
@@ -596,6 +607,7 @@ app.post("/apply", async (req, res) => {
             <h2>{slide.title}</h2>
             {slide.subtitle && <h3>{slide.subtitle}</h3>}
             <p>{slide.content}</p>
+            {slide.hook && <p className="code-description">{slide.hook}</p>}
             
             <div className="demo-redirect-container">
               <div className="tech-showcase">
@@ -608,32 +620,32 @@ app.post("/apply", async (req, res) => {
                     <div className="tech-icon">
                       <ProfessionalIcon type="api" className="professional-icon" />
                     </div>
-                    <h4>API Integration</h4>
-                    <p>Secure authentication and data handling</p>
+                    <h4>Clear UX for all outcomes</h4>
+                    <p>Approved, Deny, Manual Review</p>
                   </div>
                   
                   <div className="tech-showcase-item">
                     <div className="tech-icon">
                       <ProfessionalIcon type="shield" className="professional-icon" />
                     </div>
-                    <h4>Form Validation</h4>
-                    <p>Real-time input validation and error feedback</p>
+                    <h4>Robust validation and safe error handling</h4>
+                    <p>PII protected and friendly messages</p>
                   </div>
                   
                   <div className="tech-showcase-item">
                     <div className="tech-icon">
                       <ProfessionalIcon type="error" className="professional-icon" />
                     </div>
-                    <h4>Error Handling</h4>
-                    <p>Comprehensive error management and user feedback</p>
+                    <h4>Ready to walk through code or demo live</h4>
+                    <p>Hands-on review</p>
                   </div>
                   
                   <div className="tech-showcase-item">
                     <div className="tech-icon">
                       <ProfessionalIcon type="microscope" className="professional-icon" />
                     </div>
-                    <h4>Testing</h4>
-                    <p>End-to-end testing with Playwright</p>
+                    <h4>Integration demonstrates both technical depth and customer impact</h4>
+                    <p></p>
                   </div>
                 </div>
               </div>
