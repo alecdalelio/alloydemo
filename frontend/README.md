@@ -41,9 +41,9 @@ npm run build      # Build for production
 ### Playwright Testing
 ```bash
 npm run test:playwright        # Run all Playwright tests
-npm run test:demo             # Test demo mode
-npm run test:layout           # Test layout and UX
-npm run test:responsive       # Test responsive design
+npm run test:demo             # Presentation mode tests
+npm run test:layout           # Final slide layout checks
+npm run test:smoke            # Minimal smoke test (Chromium only)
 npm run test:playwright:ui    # Run tests with UI
 npm run test:playwright:headed # Run tests in headed mode
 npm run test:playwright:debug # Debug tests step by step
@@ -106,10 +106,11 @@ Use these last names to test different outcomes:
 
 ## 🔧 Configuration
 
-### Environment Variables
-The frontend automatically connects to the backend on:
-- Port 5001 (preferred)
-- Port 5000 (fallback)
+### Environment / Backend
+By default, the frontend posts to a hosted backend:
+- https://alloydemo.onrender.com/apply
+
+To use a local backend instead, update the API URL in `src/App.js` and start the backend (`npm run start:backend` from project root). Ensure backend CORS `FRONTEND_ORIGIN` matches your frontend URL.
 
 ### Build Configuration
 - **Production Build**: `npm run build`
@@ -143,8 +144,7 @@ The frontend automatically connects to the backend on:
 ```
 tests/
 ├── presentation.spec.js    # Presentation mode tests
-├── layout.spec.js         # Layout and UX tests
-└── responsive.spec.js     # Responsive design tests
+└── layout.spec.js          # Final slide layout & responsiveness
 ```
 
 ## 🚨 Troubleshooting

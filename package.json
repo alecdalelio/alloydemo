@@ -7,6 +7,8 @@
     "start:frontend": "cd frontend && npm start",
     "start:backend": "cd backend && npm start",
     "test": "cd frontend && npm test",
+    "test:smoke": "cd frontend && npx playwright test tests/smoke.spec.js --project=chromium",
+    "test:quick": "cd frontend && PW_SUITE=smoke npx playwright test",
     "test:playwright": "cd frontend && npx playwright test",
     "test:demo": "cd frontend && npx playwright test tests/presentation.spec.js",
     "test:layout": "cd frontend && npx playwright test tests/layout.spec.js",

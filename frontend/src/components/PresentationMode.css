@@ -1688,6 +1688,27 @@
   .bottom-controls {
     bottom: 15px;
   }
+
+  /* Ensure final slide content fits viewport and scrolls if needed */
+  .slide-demo-redirect .demo-redirect-container {
+    max-height: calc(100vh - 140px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 40px;
+    padding: var(--space-sm);
+  }
+
+  .slide-demo-redirect h2 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .slide-demo-redirect h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .redirect-content {
+    padding: var(--space-md);
+  }
 }
 
 @media (max-width: 480px) {
