@@ -47,9 +47,9 @@ const OutcomeCard = ({ outcome, apiResponse, showTechnicalDetails, onToggleTechn
   return (
     <div className="outcome-card">
       <div 
-        className={`outcome-display outcome-${config.color}`}
+        className={`outcome-display`}
         style={{
-          backgroundColor: config.bgColor,
+          backgroundColor: '#ffffff',
           borderColor: config.borderColor
         }}
       >

@@ -518,6 +518,97 @@ body {
   box-shadow: var(--shadow-xl);
 }
 
+/* Polished inner outcome panel and actions to match brand */
+.outcome-display {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--alloy-gray-200);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-2xl);
+  backdrop-filter: blur(16px);
+  text-align: center;
+}
+
+.outcome-display h4 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  margin: var(--space-md) 0 var(--space-sm);
+  letter-spacing: -0.02em;
+  color: var(--alloy-gray-800);
+}
+
+.outcome-display p {
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  color: var(--alloy-gray-600);
+  margin: 0 auto var(--space-lg);
+  max-width: 640px;
+}
+
+/* Subtle color rails for inner panel (uses inline border color) */
+.outcome-success .outcome-display,
+.outcome-display.outcome-success {
+  border-color: rgba(56, 161, 105, 0.3);
+  box-shadow: 0 10px 25px -10px rgba(56, 161, 105, 0.45), var(--shadow-lg);
+}
+
+.outcome-review .outcome-display,
+.outcome-display.outcome-warning {
+  border-color: rgba(214, 158, 46, 0.35);
+  box-shadow: 0 10px 25px -10px rgba(214, 158, 46, 0.5), var(--shadow-lg);
+}
+
+.outcome-deny .outcome-display,
+.outcome-display.outcome-error {
+  border-color: rgba(229, 62, 62, 0.35);
+  box-shadow: 0 10px 25px -10px rgba(229, 62, 62, 0.5), var(--shadow-lg);
+}
+
+.outcome-display .outcome-icon {
+  font-size: clamp(3rem, 6vw, 4rem);
+  margin-bottom: var(--space-md);
+}
+
+.outcome-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
+/* Demo button styles reused by OutcomeCard */
+.demo-btn {
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--alloy-accent);
+  background: linear-gradient(135deg, var(--alloy-accent) 0%, var(--alloy-accent-dark) 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+}
+
+.demo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.demo-btn.secondary {
+  background: #fff;
+  color: var(--alloy-gray-800);
+  border-color: var(--alloy-gray-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.demo-btn.secondary:hover {
+  background: var(--alloy-gray-50);
+  border-color: var(--alloy-gray-400);
+}
+
 .outcome-card::before {
   content: '';
   position: absolute;
