@@ -5,7 +5,20 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://alloydemo.vercel.app";
+
+// More robust CORS configuration
+const allowedOrigins = [
+  "https://alloydemo.vercel.app",
+  "https://alloydemo.vercel.app/",
+  "http://localhost:3000",
+  "http://localhost:3001"
+];
+
+// Add FRONTEND_ORIGIN from environment if it's not already in the list
+const envFrontendOrigin = process.env.FRONTEND_ORIGIN;
+if (envFrontendOrigin && !allowedOrigins.includes(envFrontendOrigin)) {
+  allowedOrigins.push(envFrontendOrigin);
+}
 
 // Auto-detect available port (5000 preferred, fallback to 5001)
 function getAvailablePort() {
@@ -31,13 +44,25 @@ console.log('🔍 Environment check:');
 console.log('Token provided:', !!process.env.ALLOY_WORKFLOW_TOKEN);
 console.log('Secret provided:', !!process.env.ALLOY_WORKFLOW_SECRET);
 console.log('Token preview:', process.env.ALLOY_WORKFLOW_TOKEN?.substring(0, 8) + '...');
+console.log('Allowed origins:', allowedOrigins);
 
 // ---------- CORS Configuration ----------
 const corsOptions = {
-  origin: [FRONTEND_ORIGIN, "https://alloydemo.vercel.app", "http://localhost:3000"],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('❌ CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 204,
+  credentials: true
 };
 
 // ---------- Middleware ----------
@@ -193,7 +218,7 @@ async function startServer() {
     
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
-      console.log(`CORS origin allowed: ${FRONTEND_ORIGIN}`);
+      console.log(`CORS origin allowed: ${allowedOrigins.join(', ')}`);
       console.log(`🚀 Backend ready to receive requests`);
     });
   } catch (error) {
